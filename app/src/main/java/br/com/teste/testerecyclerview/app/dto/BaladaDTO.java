@@ -3,7 +3,7 @@ package br.com.teste.testerecyclerview.app.dto;
 public class BaladaDTO {
 
     private String id;
-    //private String[] tipo_musicas;
+    private String[] tipo_musicas;
     private String nome;
     private String descricao;
     private String cep;
@@ -17,6 +17,7 @@ public class BaladaDTO {
     private String site;
     private double preco_medio;
     private boolean ativo;
+    private String foto;
 
     public String getId() {
         return id;
@@ -24,6 +25,14 @@ public class BaladaDTO {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String[] getTipo_musicas() {
+        return tipo_musicas;
+    }
+
+    public void setTipo_musicas(String[] tipo_musicas) {
+        this.tipo_musicas = tipo_musicas;
     }
 
     public String getNome() {
@@ -128,6 +137,14 @@ public class BaladaDTO {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     @Override

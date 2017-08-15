@@ -23,7 +23,7 @@ public class BaladaDetalhesActivity extends AppCompatActivity {
         super.onResume();
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
-        long id = bundle.getLong("id");
+        String id = bundle.getString("id");
 
         Toast.makeText(this, "Id selecionado = " +id, Toast.LENGTH_SHORT).show();
     }

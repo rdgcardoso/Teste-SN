@@ -1,10 +1,13 @@
 package br.com.teste.testerecyclerview.app.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +44,10 @@ public class BaladaAdapter extends RecyclerView.Adapter {
         holder.nomeView.setText(balada.getNome());
         holder.endereco1View.setText(balada.getEndereco1());
         holder.endereco2View.setText(balada.getEndereco2());
-        holder.musicaTipoView.setText(balada.getMusicaTipo());
-        holder.notaView.setText(balada.getNota());
-        holder.precoView.setText(balada.getPreco());
+        holder.musicaTipoView.setText(balada.getTipoMusicas());
+        holder.notaView.setText(balada.getAvaliacao());
+        holder.precoView.setText(String.valueOf(balada.getPreco_medio()));
+        Picasso.with(context).load(balada.getFoto()).into(holder.fotoView);
     }
 
     @Override

@@ -3,11 +3,12 @@ package br.com.teste.testerecyclerview.app.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.teste.testerecyclerview.R;
 
-public class BaladaViewHolder extends RecyclerView.ViewHolder {
+class BaladaViewHolder extends RecyclerView.ViewHolder {
 
     final TextView nomeView;
     final TextView endereco1View;
@@ -15,8 +16,9 @@ public class BaladaViewHolder extends RecyclerView.ViewHolder {
     final TextView musicaTipoView;
     final TextView notaView;
     final TextView precoView;
+    final ImageView fotoView;
 
-    public BaladaViewHolder(final View itemView) {
+    BaladaViewHolder(final View itemView) {
         super(itemView);
 
         nomeView = itemView.findViewById(R.id.nome);
@@ -25,5 +27,6 @@ public class BaladaViewHolder extends RecyclerView.ViewHolder {
         musicaTipoView = itemView.findViewById(R.id.musicaTipo);
         notaView = itemView.findViewById(R.id.nota);
         precoView = itemView.findViewById(R.id.preco);
+        fotoView = itemView.findViewById(R.id.foto);
     }
 }
