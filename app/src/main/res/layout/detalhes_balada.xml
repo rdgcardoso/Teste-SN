@@ -65,14 +65,14 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_info_details"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_menu_info_details" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@android:drawable/ic_menu_share"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_menu_share" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,49 +88,54 @@
             android:text="Descrição"
             android:textColor="#fff"
             android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="A balada X blablabla"
-            android:textColor="#fff"/>
+            android:textColor="#fff" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Site"
             android:textColor="#fff"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="http://balada.com.br"
-            android:textColor="#fff"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:text="http://balada.com.br"
+            android:textColor="#fff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Tipo de Música"
             android:textColor="#fff"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sertanejo, Forró"
-            android:textColor="#fff"/>
+            android:textColor="#fff" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Preço Médio"
             android:textColor="#fff"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="R$25"
-            android:textColor="#fff"/>
+            android:textColor="#fff" />
     </LinearLayout>
 </LinearLayout>

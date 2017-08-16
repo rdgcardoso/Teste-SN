@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import br.com.teste.testerecyclerview.app.adapter.CustomItemClickListener;
 import br.com.teste.testerecyclerview.app.controller.BaladaDetalhesActivity;
 import br.com.teste.testerecyclerview.app.dto.BaladaDTO;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
-import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
+import br.com.teste.testerecyclerview.app.ws.RankingBaladaEndpoint;
 import br.com.teste.testerecyclerview.domain.model.Balada;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -31,13 +30,12 @@ public class ConsultaBaladasTask extends AsyncTask<Void, Void, List<Balada>> {
 
     private Context context;
     private AppCompatActivity activity;
-    private String id;
-    private BaladaEndpoint endpoint;
+    //private String id;
+    private RankingBaladaEndpoint endpoint;
     private ProgressDialog progressDialog;
 
-    public ConsultaBaladasTask(Context context, String id) {
+    public ConsultaBaladasTask(Context context) {
         this.context = context;
-        this.id = id;
     }
 
     @Override //Pré execucao
@@ -63,7 +61,7 @@ public class ConsultaBaladasTask extends AsyncTask<Void, Void, List<Balada>> {
 
         try {
 
-            Call<List<BaladaDTO>> call = endpoint.consultarBaladas(id);
+            Call<List<BaladaDTO>> call = endpoint.consultarBaladas();
             Response<List<BaladaDTO>> response = call.execute();
 
             if (response.isSuccessful()) {

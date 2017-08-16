@@ -9,9 +9,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
 
-public interface BaladaEndpoint {
+public interface RankingBaladaEndpoint {
 
     @Headers("Authorization: Token eea8622e6a6159eac2fa9365e434f2d5fcc804f5")
-    @GET("baladas/ranking{id}")
-    Call<List<BaladaDTO>> consultarBaladas(@Path("id") String id);
+    //@GET("baladas/ranking{id}")
+    @GET("baladas/ranking")
+    //Call<List<BaladaDTO>> consultarBaladas(@Path("id") String id);
+    Call<List<BaladaDTO>> consultarBaladas();
 }
