@@ -13,7 +13,7 @@ public class BaladaDTO {
     private String logradouro;
     private String numero;
     private String complemento;
-    private double avaliacao;
+    private float avaliacao;
     private String site;
     private double preco_medio;
     private boolean ativo;
@@ -107,11 +107,11 @@ public class BaladaDTO {
         this.complemento = complemento;
     }
 
-    public double getAvaliacao() {
+    public float getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(double avaliacao) {
+    public void setAvaliacao(float avaliacao) {
         this.avaliacao = avaliacao;
     }
 

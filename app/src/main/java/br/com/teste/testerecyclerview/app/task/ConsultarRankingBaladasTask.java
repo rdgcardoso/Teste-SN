@@ -21,20 +21,20 @@ import br.com.teste.testerecyclerview.app.adapter.CustomItemClickListener;
 import br.com.teste.testerecyclerview.app.controller.BaladaDetalhesActivity;
 import br.com.teste.testerecyclerview.app.dto.BaladaDTO;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
-import br.com.teste.testerecyclerview.app.ws.RankingBaladaEndpoint;
+import br.com.teste.testerecyclerview.app.ws.RankingBaladasEndpoint;
 import br.com.teste.testerecyclerview.domain.model.Balada;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class ConsultaBaladasTask extends AsyncTask<Void, Void, List<Balada>> {
+public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Balada>> {
 
     private Context context;
     private AppCompatActivity activity;
     //private String id;
-    private RankingBaladaEndpoint endpoint;
+    private RankingBaladasEndpoint endpoint;
     private ProgressDialog progressDialog;
 
-    public ConsultaBaladasTask(Context context) {
+    public ConsultarRankingBaladasTask(Context context) {
         this.context = context;
     }
 
@@ -51,7 +51,7 @@ public class ConsultaBaladasTask extends AsyncTask<Void, Void, List<Balada>> {
 
         Log.i("LRDG", "Execução");
 
-        endpoint = RetrofitHelper.with(context).createBaladaEndpoint();
+        endpoint = RetrofitHelper.with(context).createRankingBaladasEndpoint();
 
         List<BaladaDTO> dtoList;
         List<Balada> baladaList;
@@ -61,7 +61,7 @@ public class ConsultaBaladasTask extends AsyncTask<Void, Void, List<Balada>> {
 
         try {
 
-            Call<List<BaladaDTO>> call = endpoint.consultarBaladas();
+            Call<List<BaladaDTO>> call = endpoint.consultarRankingBaladas();
             Response<List<BaladaDTO>> response = call.execute();
 
             if (response.isSuccessful()) {
@@ -118,14 +118,11 @@ public class ConsultaBaladasTask extends AsyncTask<Void, Void, List<Balada>> {
             public void onItemClick(View v, int position) {
                 Log.d("LRDG", "Clicado position: " + position);
 
-                long id;
-                id = baladaList.get(position).getId();
-                Log.d("LRDG", "ID: " + id);
+                Balada balada;
+                balada = baladaList.get(position);
 
-                Bundle bundle = new Bundle();
-                bundle.putLong("id", id);
                 Intent i = new Intent(context, BaladaDetalhesActivity.class);
-                i.putExtra("id", id);
+                i.putExtra("balada", balada);
                 activity.startActivity(i);
             }
         });

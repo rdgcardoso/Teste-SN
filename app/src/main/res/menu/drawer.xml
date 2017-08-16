@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/ranking"
+            android:checked="false"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Ranking" />
+
+        <item
+            android:id="@+id/perfil"
+            android:checked="false"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Perfil" />
+
+        <item
+            android:id="@+id/baladas"
+            android:checked="false"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Baladas" />
+
+        <item
+            android:id="@+id/eventos"
+            android:checked="false"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Eventos" />
+    </group>
+</menu>

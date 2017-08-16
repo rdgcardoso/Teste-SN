@@ -1,11 +1,12 @@
 package br.com.teste.testerecyclerview.domain.model;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class Balada {
+public class Balada implements Serializable{
 
     private long id;
     private String[] tipo_musicas;
@@ -18,27 +19,13 @@ public class Balada {
     private String logradouro;
     private String numero;
     private String complemento;
-    private double avaliacao;
+    private float avaliacao;
     private String site;
     private double preco_medio;
     private boolean ativo;
     private String foto;
 
-    public String getTipoMusicas() {
-
-        String tipos = "";
-
-        if (tipo_musicas != null) {
-            tipos = tipo_musicas[0];
-            for (int i = 1; i < tipo_musicas.length; i++ ) {
-                tipos += ", " + tipo_musicas[i];
-            }
-        }
-
-        return tipos;
-    }
-
-    public Balada(long id, String[] tipo_musicas, String nome, String descricao, String cep, String estado, String cidade, String bairro, String logradouro, String numero, String complemento, double avaliacao, String site, double preco_medio, boolean ativo, String foto) {
+    public Balada(long id, String[] tipo_musicas, String nome, String descricao, String cep, String estado, String cidade, String bairro, String logradouro, String numero, String complemento, float avaliacao, String site, double preco_medio, boolean ativo, String foto) {
         this.id = id;
         this.tipo_musicas = tipo_musicas;
         this.nome = nome;
@@ -55,6 +42,20 @@ public class Balada {
         this.preco_medio = preco_medio;
         this.ativo = ativo;
         this.foto = foto;
+    }
+
+    public String getTipoMusicas() {
+
+        String tipos = "";
+
+        if (tipo_musicas != null) {
+            tipos = tipo_musicas[0];
+            for (int i = 1; i < tipo_musicas.length; i++ ) {
+                tipos += ", " + tipo_musicas[i];
+            }
+        }
+
+        return tipos;
     }
 
     public String getEndereco1() {
@@ -145,11 +146,11 @@ public class Balada {
         this.complemento = complemento;
     }
 
-    public double getAvaliacao() {
+    public float getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(double avaliacao) {
+    public void setAvaliacao(float avaliacao) {
         this.avaliacao = avaliacao;
     }
 
@@ -161,7 +162,7 @@ public class Balada {
         this.site = site;
     }
 
-    public String getPreco_medio() {
+    public String getPrecoMedio() {
         DecimalFormat decimalFormat = new DecimalFormat ("#,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
         return "R$" + decimalFormat.format(preco_medio);
     }
@@ -189,7 +190,7 @@ public class Balada {
     @Override
     public String toString() {
         return "Balada{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", tipo_musicas=" + Arrays.toString(tipo_musicas) +
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
@@ -200,10 +201,11 @@ public class Balada {
                 ", logradouro='" + logradouro + '\'' +
                 ", numero='" + numero + '\'' +
                 ", complemento='" + complemento + '\'' +
-                ", avaliacao='" + avaliacao + '\'' +
+                ", avaliacao=" + avaliacao +
                 ", site='" + site + '\'' +
                 ", preco_medio=" + preco_medio +
                 ", ativo=" + ativo +
+                ", foto='" + foto + '\'' +
                 '}';
     }
 }

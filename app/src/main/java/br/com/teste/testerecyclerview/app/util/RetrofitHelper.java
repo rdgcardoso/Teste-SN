@@ -2,7 +2,8 @@ package br.com.teste.testerecyclerview.app.util;
 
 import android.content.Context;
 
-import br.com.teste.testerecyclerview.app.ws.RankingBaladaEndpoint;
+import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
+import br.com.teste.testerecyclerview.app.ws.RankingBaladasEndpoint;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -20,8 +21,12 @@ public final class RetrofitHelper {
                 .build();
     }
 
-    public RankingBaladaEndpoint createBaladaEndpoint() {
-        return retrofit.create(RankingBaladaEndpoint.class);
+    public RankingBaladasEndpoint createRankingBaladasEndpoint() {
+        return retrofit.create(RankingBaladasEndpoint.class);
+    }
+
+    public BaladaEndpoint createBaladaEndpoint() {
+        return retrofit.create(BaladaEndpoint.class);
     }
 
     public static RetrofitHelper with (Context context) {
