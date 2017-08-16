@@ -1,10 +1,13 @@
 package br.com.teste.testerecyclerview.domain.model;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class Balada {
 
-    private String id;
+    private long id;
     private String[] tipo_musicas;
     private String nome;
     private String descricao;
@@ -15,7 +18,7 @@ public class Balada {
     private String logradouro;
     private String numero;
     private String complemento;
-    private String avaliacao;
+    private double avaliacao;
     private String site;
     private double preco_medio;
     private boolean ativo;
@@ -35,7 +38,7 @@ public class Balada {
         return tipos;
     }
 
-    public Balada(String id, String[] tipo_musicas, String nome, String descricao, String cep, String estado, String cidade, String bairro, String logradouro, String numero, String complemento, String avaliacao, String site, double preco_medio, boolean ativo, String foto) {
+    public Balada(long id, String[] tipo_musicas, String nome, String descricao, String cep, String estado, String cidade, String bairro, String logradouro, String numero, String complemento, double avaliacao, String site, double preco_medio, boolean ativo, String foto) {
         this.id = id;
         this.tipo_musicas = tipo_musicas;
         this.nome = nome;
@@ -62,11 +65,11 @@ public class Balada {
         return bairro + " - " + cidade + " - " + estado;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -142,11 +145,11 @@ public class Balada {
         this.complemento = complemento;
     }
 
-    public String getAvaliacao() {
+    public double getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(String avaliacao) {
+    public void setAvaliacao(double avaliacao) {
         this.avaliacao = avaliacao;
     }
 
@@ -158,8 +161,9 @@ public class Balada {
         this.site = site;
     }
 
-    public double getPreco_medio() {
-        return preco_medio;
+    public String getPreco_medio() {
+        DecimalFormat decimalFormat = new DecimalFormat ("#,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
+        return "R$" + decimalFormat.format(preco_medio);
     }
 
     public void setPreco_medio(double preco_medio) {

@@ -45,7 +45,7 @@ public class BaladaAdapter extends RecyclerView.Adapter {
         holder.endereco1View.setText(balada.getEndereco1());
         holder.endereco2View.setText(balada.getEndereco2());
         holder.musicaTipoView.setText(balada.getTipoMusicas());
-        holder.notaView.setText(balada.getAvaliacao());
+        holder.notaView.setText(String.valueOf(balada.getAvaliacao()));
         holder.precoView.setText(String.valueOf(balada.getPreco_medio()));
         Picasso.with(context).load(balada.getFoto()).into(holder.fotoView);
     }

@@ -118,12 +118,12 @@ public class ConsultaBaladasTask extends AsyncTask<Void, Void, List<Balada>> {
             public void onItemClick(View v, int position) {
                 Log.d("LRDG", "Clicado position: " + position);
 
-                String id;
+                long id;
                 id = baladaList.get(position).getId();
                 Log.d("LRDG", "ID: " + id);
 
                 Bundle bundle = new Bundle();
-                bundle.putString("id", id);
+                bundle.putLong("id", id);
                 Intent i = new Intent(context, BaladaDetalhesActivity.class);
                 i.putExtra("id", id);
                 activity.startActivity(i);

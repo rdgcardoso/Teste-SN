@@ -2,7 +2,7 @@ package br.com.teste.testerecyclerview.app.dto;
 
 public class BaladaDTO {
 
-    private String id;
+    private long id;
     private String[] tipo_musicas;
     private String nome;
     private String descricao;
@@ -13,17 +13,17 @@ public class BaladaDTO {
     private String logradouro;
     private String numero;
     private String complemento;
-    private String avaliacao;
+    private double avaliacao;
     private String site;
     private double preco_medio;
     private boolean ativo;
     private String foto;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -107,11 +107,11 @@ public class BaladaDTO {
         this.complemento = complemento;
     }
 
-    public String getAvaliacao() {
+    public double getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(String avaliacao) {
+    public void setAvaliacao(double avaliacao) {
         this.avaliacao = avaliacao;
     }
 
