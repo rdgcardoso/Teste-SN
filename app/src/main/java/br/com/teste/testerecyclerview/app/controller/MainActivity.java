@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import br.com.teste.testerecyclerview.R;
+import br.com.teste.testerecyclerview.app.task.ConsultarRankingBaladasTask;
+import br.com.teste.testerecyclerview.app.task.ConsultarUsuarioTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("@string/app_name");
         setSupportActionBar(toolbar);
+
+        new ConsultarUsuarioTask(this).execute();
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
