@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,9 +32,14 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
 
     private Context context;
     private AppCompatActivity activity;
-    //private String id;
     private RankingBaladasEndpoint endpoint;
     private ProgressDialog progressDialog;
+    private View view;
+
+    public ConsultarRankingBaladasTask(Context context, View view) {
+        this.context = context;
+        this.view = view;
+    }
 
     public ConsultarRankingBaladasTask(Context context) {
         this.context = context;
@@ -42,8 +49,10 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
     protected void onPreExecute() {
         Log.i("LRDG", "Pré execução");
 
-        progressDialog = new ProgressDialog(context);
-        progressDialog = ProgressDialog.show(context, "Aguarde", "Carregando Baladas...", true, true);
+        if (view == null) {
+            progressDialog = new ProgressDialog(context);
+            progressDialog = ProgressDialog.show(context, "Aguarde", "Carregando Baladas...", true, true);
+        }
     }
 
     @Override //Execução
@@ -128,6 +137,13 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
         });
         recyclerView.setAdapter(baladaAdapter);
 
-        progressDialog.dismiss();
+        if (view != null) {
+            SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(context, "Ranking atualizado...", Toast.LENGTH_SHORT).show();
+        } else {
+            progressDialog.dismiss();
+        }
+
     }
 }
