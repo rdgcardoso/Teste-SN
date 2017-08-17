@@ -1,144 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/foto"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="10dp"
-            android:background="@android:color/transparent"
-            android:src="@mipmap/ic_launcher_round" />
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/endereco1"
+            <ImageView
+                android:id="@+id/foto"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Avenida Rudge, 315" />
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/endereco2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bom Retiro - SP" />
+                <TextView
+                    android:id="@+id/endereco1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Avenida Rudge, 315" />
 
-            <RatingBar
-                android:id="@+id/avaliacaoEstrelas"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:isIndicator="false"
-                android:numStars="5"
-                android:progressTint="@color/golden" />
+                <TextView
+                    android:id="@+id/endereco2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bom Retiro - SP" />
+
+                <RatingBar
+                    android:id="@+id/avaliacaoEstrelas"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:progressTint="@color/golden" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/cardview_dark_background">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_info_details" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_share" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#000">
-
-        <LinearLayout
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#000"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:background="#595959">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descrição"
-                android:textColor="#fff"
-                android:textStyle="bold" />
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/custom_tab_layout_height"
+                app:tabGravity="fill"
+                app:tabMode="fixed" />
+        </android.support.design.widget.AppBarLayout>
 
-            <TextView
-                android:id="@+id/descricao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="A balada X blablabla"
-                android:textColor="#fff" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Site"
-                android:textColor="#fff"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/site"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoLink="web"
-                android:text="http://balada.com.br"
-                android:textColor="#fff" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Tipo de Música"
-                android:textColor="#fff"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tipoMusica"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sertanejo, Forró"
-                android:textColor="#fff" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Preço Médio"
-                android:textColor="#fff"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/precoMedio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="R$25"
-                android:textColor="#fff" />
-        </LinearLayout>
-
-    </ScrollView>
-
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>
