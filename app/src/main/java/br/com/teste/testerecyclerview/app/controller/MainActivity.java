@@ -17,9 +17,10 @@ import android.widget.Toast;
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.task.ConsultarRankingBaladasTask;
 import br.com.teste.testerecyclerview.app.task.ConsultarUsuarioTask;
+import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends StartNightActivity {
 
     private Toolbar toolbar;
     private NavigationView navigationView;
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("@string/app_name");
         setSupportActionBar(toolbar);
 
-        new ConsultarUsuarioTask(this).execute();
+        SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(this);
+        new ConsultarUsuarioTask(this, sharedPreferencesHelper.recuperarTokenCache()).execute();
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 

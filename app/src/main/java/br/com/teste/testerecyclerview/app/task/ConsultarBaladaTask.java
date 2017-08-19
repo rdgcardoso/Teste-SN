@@ -15,6 +15,7 @@ import java.io.IOException;
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.BaladaDTO;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
+import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
 import br.com.teste.testerecyclerview.domain.model.Balada;
 import retrofit2.Call;
@@ -25,10 +26,13 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
     private Context context;
     private long id;
     private ProgressDialog progressDialog;
+    private AppCompatActivity activity;
+    private String token;
 
-    public ConsultarBaladaTask(Context context, long id) {
+    public ConsultarBaladaTask(Context context, long id, String token) {
         this.context = context;
         this.id = id;
+        this.token = token;
     }
 
     @Override //Pré execucao
@@ -50,8 +54,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
         BaladaDTO dto;
 
         try {
-
-            Call<BaladaDTO> call = endpoint.consultarBalada(id);
+            Call<BaladaDTO> call = endpoint.consultarBalada(id, token);
             Response<BaladaDTO> response = call.execute();
 
             if (response.isSuccessful()) {
@@ -92,8 +95,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
     protected void onPostExecute(final Balada balada) {
         Log.i("LRDG", "Pós execução");
 
-        AppCompatActivity activity = (AppCompatActivity) context;
-
+        activity = (AppCompatActivity) context;
         ImageView fotoView = (ImageView) activity.findViewById(R.id.foto);
         TextView endereco1View = (TextView) activity.findViewById(R.id.endereco1);
         TextView endereco2View = (TextView) activity.findViewById(R.id.endereco2);

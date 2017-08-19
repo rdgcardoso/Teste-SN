@@ -7,6 +7,24 @@ public class UsuarioDTO {
     private String first_name;
     private String last_name;
     private UsuarioInformacoesDTO user_info;
+    private String key;
+    private String django_key;
+
+    public String getDjango_key() {
+        return django_key;
+    }
+
+    public void setDjango_key(String django_key) {
+        this.django_key = django_key;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public long getId() {
         return id;

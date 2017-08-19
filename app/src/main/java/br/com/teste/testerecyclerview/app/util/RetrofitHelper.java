@@ -3,10 +3,12 @@ package br.com.teste.testerecyclerview.app.util;
 import android.content.Context;
 
 import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
+import br.com.teste.testerecyclerview.app.ws.LoginEndpoint;
 import br.com.teste.testerecyclerview.app.ws.RankingBaladasEndpoint;
 import br.com.teste.testerecyclerview.app.ws.UsuarioEndpoint;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Headers;
 
 public final class RetrofitHelper {
 
@@ -34,7 +36,13 @@ public final class RetrofitHelper {
         return retrofit.create(UsuarioEndpoint.class);
     }
 
+    public LoginEndpoint createLoginEndpoint() {
+        return retrofit.create(LoginEndpoint.class);
+    }
+
     public static RetrofitHelper with (Context context) {
         return new RetrofitHelper(context);
     }
+
+
 }

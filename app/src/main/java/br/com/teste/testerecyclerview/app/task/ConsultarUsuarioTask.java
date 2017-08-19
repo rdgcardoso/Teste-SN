@@ -29,9 +29,12 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
 
     private Context context;
     private ProgressDialog progressDialog;
+    private AppCompatActivity activity;
+    private String token;
 
-    public ConsultarUsuarioTask(Context context) {
+    public ConsultarUsuarioTask(Context context, String token) {
         this.context = context;
+        this.token = token;
     }
 
     @Override //Pré execucao
@@ -54,7 +57,7 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
 
         try {
 
-            Call<UsuarioDTO> call = endpoint.consultarUsuario();
+            Call<UsuarioDTO> call = endpoint.consultarUsuario(token);
             Response<UsuarioDTO> response = call.execute();
 
             if (response.isSuccessful()) {
@@ -85,8 +88,7 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
     protected void onPostExecute(final Usuario usuario) {
         Log.i("LRDG", "Pós execução");
 
-        AppCompatActivity activity = (AppCompatActivity) context;
-
+        activity = (AppCompatActivity) context;
         TextView nomeCompletoView = (TextView) activity.findViewById(R.id.nomeCompleto);
         TextView emailView = (TextView) activity.findViewById(R.id.email);
         ImageView imageView = (ImageView) activity.findViewById(R.id.profile_image);

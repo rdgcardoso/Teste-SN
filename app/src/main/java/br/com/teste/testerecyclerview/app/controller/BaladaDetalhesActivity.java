@@ -26,7 +26,7 @@ import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.task.ConsultarBaladaTask;
 import br.com.teste.testerecyclerview.domain.model.Balada;
 
-public class BaladaDetalhesActivity extends AppCompatActivity {
+public class BaladaDetalhesActivity extends StartNightActivity {
 
     Balada balada;
     private TabLayout tabLayout;

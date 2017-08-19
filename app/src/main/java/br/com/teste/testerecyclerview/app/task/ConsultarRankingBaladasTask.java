@@ -35,14 +35,17 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
     private RankingBaladasEndpoint endpoint;
     private ProgressDialog progressDialog;
     private View view;
+    private String token;
 
-    public ConsultarRankingBaladasTask(Context context, View view) {
+    public ConsultarRankingBaladasTask(Context context, View view, String token) {
         this.context = context;
         this.view = view;
+        this.token = token;
     }
 
-    public ConsultarRankingBaladasTask(Context context) {
+    public ConsultarRankingBaladasTask(Context context, String token) {
         this.context = context;
+        this.token = token;
     }
 
     @Override //Pré execucao
@@ -70,7 +73,7 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
 
         try {
 
-            Call<List<BaladaDTO>> call = endpoint.consultarRankingBaladas();
+            Call<List<BaladaDTO>> call = endpoint.consultarRankingBaladas(token);
             Response<List<BaladaDTO>> response = call.execute();
 
             if (response.isSuccessful()) {

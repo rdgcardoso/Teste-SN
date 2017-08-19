@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.task.ConsultarBaladaTask;
+import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 
 public class BaladaDetalhesFragment extends Fragment {
 
@@ -20,7 +21,8 @@ public class BaladaDetalhesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         long id = getArguments().getLong("id");
-        new ConsultarBaladaTask(getContext(), id).execute();
+        SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(this.getContext());
+        new ConsultarBaladaTask(getContext(), id, sharedPreferencesHelper.recuperarTokenCache()).execute();
 
         return inflater.inflate(R.layout.detalhes_balada_fragment, container, false);
     }
