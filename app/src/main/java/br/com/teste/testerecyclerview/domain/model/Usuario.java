@@ -1,6 +1,8 @@
 package br.com.teste.testerecyclerview.domain.model;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     private long id;
     private String username;
     private String email;
@@ -27,6 +29,10 @@ public class Usuario {
 
     public String getFoto() {
         return foto;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     @Override

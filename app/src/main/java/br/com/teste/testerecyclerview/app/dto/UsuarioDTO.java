@@ -78,5 +78,19 @@ public class UsuarioDTO {
 
         return user_info.getFoto();
     }
+
+    @Override
+    public String toString() {
+        return "UsuarioDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", user_info=" + user_info +
+                ", key='" + key + '\'' +
+                ", django_key='" + django_key + '\'' +
+                '}';
+    }
 }
 

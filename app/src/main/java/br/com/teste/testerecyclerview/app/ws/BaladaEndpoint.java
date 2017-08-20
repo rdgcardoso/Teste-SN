@@ -12,7 +12,6 @@ import retrofit2.http.Path;
 
 public interface BaladaEndpoint {
 
-    //@Headers("Authorization: Token 604817b27f53f641a3e3bfce3646beb30587be30")
     @GET("baladas/{id}")
     Call<BaladaDTO> consultarBalada(
             @Path("id") long id,

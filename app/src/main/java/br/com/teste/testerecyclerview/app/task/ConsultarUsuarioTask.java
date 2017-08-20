@@ -39,7 +39,7 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
 
     @Override //Pré execucao
     protected void onPreExecute() {
-        Log.i("LRDG", "Pré execução");
+        Log.i("LRDG", "Pré execução ConsultarUsuarioTask");
 
         progressDialog = new ProgressDialog(context);
         progressDialog = ProgressDialog.show(context, "Aguarde", "Carregando Usuario...", true, true);
@@ -48,7 +48,7 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
     @Override //Execução
     protected Usuario doInBackground(Void... voids) {
 
-        Log.i("LRDG", "Execução");
+        Log.i("LRDG", "Execução ConsultarUsuarioTask");
 
         UsuarioEndpoint endpoint = RetrofitHelper.with(context).createUsuarioEndpoint();
 
@@ -74,7 +74,7 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
                     );
                 }
             } else {
-                Log.i("LRDG", "Erro");
+                Log.i("LRDG", "Erro ConsultarUsuarioTask");
             }
 
         } catch (IOException e) {
@@ -86,7 +86,7 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
 
     @Override
     protected void onPostExecute(final Usuario usuario) {
-        Log.i("LRDG", "Pós execução");
+        Log.i("LRDG", "Pós execução ConsultarUsuarioTask");
 
         activity = (AppCompatActivity) context;
         TextView nomeCompletoView = (TextView) activity.findViewById(R.id.nomeCompleto);

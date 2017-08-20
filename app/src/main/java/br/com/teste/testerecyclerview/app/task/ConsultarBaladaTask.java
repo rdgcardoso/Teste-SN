@@ -37,7 +37,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
 
     @Override //Pré execucao
     protected void onPreExecute() {
-        Log.i("LRDG", "Pré execução");
+        Log.i("LRDG", "Pré execução ConsultarBaladaTask");
 
         progressDialog = new ProgressDialog(context);
         progressDialog = ProgressDialog.show(context, "Aguarde", "Carregando Balada...", true, true);
@@ -46,7 +46,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
     @Override //Execução
     protected Balada doInBackground(Void... voids) {
 
-        Log.i("LRDG", "Execução");
+        Log.i("LRDG", "Execução ConsultarBaladaTask");
 
         BaladaEndpoint endpoint = RetrofitHelper.with(context).createBaladaEndpoint();
 
@@ -81,7 +81,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
                     );
                 }
             } else {
-                Log.i("LRDG", "Erro");
+                Log.i("LRDG", "Erro ConsultarBaladaTask");
             }
 
         } catch (IOException e) {
@@ -93,7 +93,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
 
     @Override
     protected void onPostExecute(final Balada balada) {
-        Log.i("LRDG", "Pós execução");
+        Log.i("LRDG", "Pós execução ConsultarBaladaTask");
 
         activity = (AppCompatActivity) context;
         ImageView fotoView = (ImageView) activity.findViewById(R.id.foto);

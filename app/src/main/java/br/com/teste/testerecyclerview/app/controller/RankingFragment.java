@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,7 @@ import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 
 public class RankingFragment extends Fragment {
 
-    private Toolbar toolbar;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    SharedPreferencesHelper sharedPreferencesHelper;
+    private SharedPreferencesHelper sharedPreferencesHelper;
 
     @Nullable
     @Override
@@ -25,10 +24,10 @@ public class RankingFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.ranking_fragment, container, false);
 
-        toolbar = getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Top Baladas");
 
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         sharedPreferencesHelper = new SharedPreferencesHelper(getContext());
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -38,7 +37,10 @@ public class RankingFragment extends Fragment {
             }
         });
 
-        new ConsultarRankingBaladasTask(getContext(), sharedPreferencesHelper.recuperarTokenCache()).execute();
+        String token;
+        token = sharedPreferencesHelper.recuperarTokenCache();
+        Log.d("LRDG", "Token RankingFragment = " + token);
+        new ConsultarRankingBaladasTask(getContext(), token ).execute();
         return view;
     }
 }

@@ -25,5 +25,11 @@
             android:checked="false"
             android:icon="@mipmap/ic_launcher"
             android:title="Eventos" />
+
+        <item
+            android:id="@+id/logout"
+            android:checked="false"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Sair" />
     </group>
 </menu>

@@ -50,7 +50,7 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
 
     @Override //Pré execucao
     protected void onPreExecute() {
-        Log.i("LRDG", "Pré execução");
+        Log.i("LRDG", "Pré execução ConsultarRankingBaladasTask");
 
         if (view == null) {
             progressDialog = new ProgressDialog(context);
@@ -61,7 +61,8 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
     @Override //Execução
     protected List<Balada> doInBackground(Void... voids) {
 
-        Log.i("LRDG", "Execução");
+        Log.i("LRDG", "Execução ConsultarRankingBaladasTask");
+        Log.i("LRDG", "Token ConsultarRankingBaladasTask: " + token);
 
         endpoint = RetrofitHelper.with(context).createRankingBaladasEndpoint();
 
@@ -105,7 +106,7 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
                     }
                 }
             } else {
-                Log.i("LRDG", "Erro");
+                Log.i("LRDG", "Erro ConsultarRankingBaladasTask");
             }
 
         } catch (IOException e) {
@@ -117,7 +118,7 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
 
     @Override
     protected void onPostExecute(final List<Balada> baladaList) {
-        Log.i("LRDG", "Pós execução");
+        Log.i("LRDG", "Pós execução ConsultarRankingBaladasTask");
 
         activity = (AppCompatActivity) context;
         RecyclerView recyclerView = (RecyclerView) activity.findViewById(R.id.recycler);

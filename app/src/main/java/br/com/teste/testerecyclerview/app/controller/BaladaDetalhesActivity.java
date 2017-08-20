@@ -8,14 +8,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,17 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.teste.testerecyclerview.R;
-import br.com.teste.testerecyclerview.app.task.ConsultarBaladaTask;
 import br.com.teste.testerecyclerview.domain.model.Balada;
 
 public class BaladaDetalhesActivity extends StartNightActivity {
 
-    Balada balada;
+    private Balada balada;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
 
     private BaladaDetalhesFragment detalhesBaladaFragment;
-    private BaladaEventosFragment eventosBaladaFragment;
 
     private int[] tabIcons = {
             android.R.drawable.ic_menu_info_details,
@@ -49,7 +42,7 @@ public class BaladaDetalhesActivity extends StartNightActivity {
         Intent i = getIntent();
         balada = (Balada) i.getSerializableExtra("balada");
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         enviaIdBalada(balada.getId(), detalhesBaladaFragment);
 
@@ -100,7 +93,7 @@ public class BaladaDetalhesActivity extends StartNightActivity {
     private void setupViewPager(ViewPager viewPager) {
 
         detalhesBaladaFragment = new BaladaDetalhesFragment();
-        eventosBaladaFragment = new BaladaEventosFragment();
+        BaladaEventosFragment eventosBaladaFragment = new BaladaEventosFragment();
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(detalhesBaladaFragment, "Detalhes");
         adapter.addFrag(eventosBaladaFragment, "Eventos");
@@ -112,7 +105,7 @@ public class BaladaDetalhesActivity extends StartNightActivity {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        private ViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -126,7 +119,7 @@ public class BaladaDetalhesActivity extends StartNightActivity {
             return mFragmentList.size();
         }
 
-        public void addFrag(Fragment fragment, String title){
+        private void addFrag(Fragment fragment, String title){
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }

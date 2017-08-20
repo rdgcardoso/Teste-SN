@@ -3,7 +3,6 @@ package br.com.teste.testerecyclerview.app.controller;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import br.com.teste.testerecyclerview.app.task.ConsultarBaladaTask;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 
 public class BaladaDetalhesFragment extends Fragment {
-
 
 
     @Nullable

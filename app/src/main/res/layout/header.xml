@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header"
     android:layout_width="match_parent"
     android:layout_height="190dp"
     android:background="@color/colorPrimary"
@@ -31,7 +32,7 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nomeCompleto"
+        android:layout_below="@id/nomeCompleto"
         android:layout_marginBottom="8dp"
         android:text="johnbalada@email.com"
         android:textAlignment="center"

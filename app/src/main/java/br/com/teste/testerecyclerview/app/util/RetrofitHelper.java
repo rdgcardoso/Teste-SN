@@ -4,6 +4,7 @@ import android.content.Context;
 
 import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
 import br.com.teste.testerecyclerview.app.ws.LoginEndpoint;
+import br.com.teste.testerecyclerview.app.ws.LogoutEndpoint;
 import br.com.teste.testerecyclerview.app.ws.RankingBaladasEndpoint;
 import br.com.teste.testerecyclerview.app.ws.UsuarioEndpoint;
 import retrofit2.Retrofit;
@@ -15,7 +16,7 @@ public final class RetrofitHelper {
     private Retrofit retrofit;
     private Context context;
 
-    public RetrofitHelper(Context context) {
+    private RetrofitHelper(Context context) {
         super();
         this.context = context;
         this.retrofit = new Retrofit.Builder()
@@ -38,6 +39,10 @@ public final class RetrofitHelper {
 
     public LoginEndpoint createLoginEndpoint() {
         return retrofit.create(LoginEndpoint.class);
+    }
+
+    public LogoutEndpoint createLogoutEndpoint() {
+        return retrofit.create(LogoutEndpoint.class);
     }
 
     public static RetrofitHelper with (Context context) {
