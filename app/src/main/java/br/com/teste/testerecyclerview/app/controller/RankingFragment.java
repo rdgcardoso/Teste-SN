@@ -33,14 +33,11 @@ public class RankingFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new ConsultarRankingBaladasTask(getContext(), view, sharedPreferencesHelper.recuperarTokenCache()).execute();
+                new ConsultarRankingBaladasTask(getContext(), view, sharedPreferencesHelper.recuperarToken()).execute();
             }
         });
 
-        String token;
-        token = sharedPreferencesHelper.recuperarTokenCache();
-        Log.d("LRDG", "Token RankingFragment = " + token);
-        new ConsultarRankingBaladasTask(getContext(), token ).execute();
+        new ConsultarRankingBaladasTask(getContext(), sharedPreferencesHelper.recuperarToken()).execute();
         return view;
     }
 }

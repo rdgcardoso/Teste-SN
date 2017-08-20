@@ -20,7 +20,7 @@ public class BaladaDetalhesFragment extends Fragment {
 
         long id = getArguments().getLong("id");
         SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(this.getContext());
-        new ConsultarBaladaTask(getContext(), id, sharedPreferencesHelper.recuperarTokenCache()).execute();
+        new ConsultarBaladaTask(getContext(), id, sharedPreferencesHelper.recuperarToken()).execute();
 
         return inflater.inflate(R.layout.detalhes_balada_fragment, container, false);
     }

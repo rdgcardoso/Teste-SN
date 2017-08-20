@@ -6,23 +6,15 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
-import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.controller.MainActivity;
-import br.com.teste.testerecyclerview.app.dto.BaladaDTO;
 import br.com.teste.testerecyclerview.app.dto.TokenDTO;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
-import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
 import br.com.teste.testerecyclerview.app.ws.LoginEndpoint;
-import br.com.teste.testerecyclerview.domain.model.Balada;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -66,7 +58,7 @@ public class AutenticarUsuarioTask extends AsyncTask<Void, Void, Boolean> {
 
                 if (tokenDTO != null) {
                     sharedPreferences = new SharedPreferencesHelper(context);
-                    sharedPreferences.salvarTokenCache(tokenDTO.getKey());
+                    sharedPreferences.setTokenCache(tokenDTO.getKey());
                     Log.d("LRDG", "Autenticado! Token " + tokenDTO.getKey());
 
                     return true;

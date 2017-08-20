@@ -46,7 +46,7 @@ public class MainActivity extends StartNightActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
-        new ConsultarUsuarioTask(this, sharedPreferencesHelper.recuperarTokenCache()).execute();
+        new ConsultarUsuarioTask(this, sharedPreferencesHelper.recuperarToken()).execute();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
 
@@ -126,8 +126,8 @@ public class MainActivity extends StartNightActivity {
                 sharedPreferencesHelper = new SharedPreferencesHelper(this);
                 LogoutEndpoint endpoint = RetrofitHelper.with(this).createLogoutEndpoint();
 
-                Log.d("LRDG", "token agora: " + sharedPreferencesHelper.recuperarTokenCache());
-                Call<LogoutDTO> call = endpoint.logoutUsuario(sharedPreferencesHelper.recuperarTokenCache());
+                Log.d("LRDG", "token agora: " + sharedPreferencesHelper.recuperarToken());
+                Call<LogoutDTO> call = endpoint.logoutUsuario(sharedPreferencesHelper.recuperarToken());
 
                 call.enqueue(new Callback<LogoutDTO>() {
                     @Override
@@ -138,7 +138,7 @@ public class MainActivity extends StartNightActivity {
                             Toast.makeText(context, "Saindo...", Toast.LENGTH_SHORT).show();
                             if (logoutDTO != null) {
                                 Log.d("LRDG", "Saindo! Mensagem: " + logoutDTO.getSuccess());
-                                sharedPreferencesHelper.salvarTokenCache("");
+                                sharedPreferencesHelper.setToken("");
                                 Intent i = new Intent(context, LoginActivity.class);
                                 startActivity(i);
                                 ((AppCompatActivity) context).finish();
