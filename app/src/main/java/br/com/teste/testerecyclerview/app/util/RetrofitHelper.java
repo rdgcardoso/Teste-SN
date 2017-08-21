@@ -1,11 +1,15 @@
 package br.com.teste.testerecyclerview.app.util;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
+import br.com.teste.testerecyclerview.app.controller.LoginActivity;
 import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
 import br.com.teste.testerecyclerview.app.ws.LoginEndpoint;
 import br.com.teste.testerecyclerview.app.ws.LogoutEndpoint;
 import br.com.teste.testerecyclerview.app.ws.RankingBaladasEndpoint;
+import br.com.teste.testerecyclerview.app.ws.TokenEndpoint;
 import br.com.teste.testerecyclerview.app.ws.UsuarioEndpoint;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,9 +49,11 @@ public final class RetrofitHelper {
         return retrofit.create(LogoutEndpoint.class);
     }
 
+    public TokenEndpoint createTokenEndpoint() {
+        return retrofit.create(TokenEndpoint.class);
+    }
+
     public static RetrofitHelper with (Context context) {
         return new RetrofitHelper(context);
     }
-
-
 }

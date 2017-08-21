@@ -2,9 +2,11 @@ package br.com.teste.testerecyclerview.app.task;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,8 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 
 import br.com.teste.testerecyclerview.R;
+import br.com.teste.testerecyclerview.app.controller.LoginActivity;
+import br.com.teste.testerecyclerview.app.controller.MainActivity;
 import br.com.teste.testerecyclerview.app.dto.BaladaDTO;
 import br.com.teste.testerecyclerview.app.dto.UsuarioDTO;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
@@ -28,9 +32,8 @@ import retrofit2.Response;
 public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
 
     private Context context;
-    private ProgressDialog progressDialog;
-    private AppCompatActivity activity;
     private String token;
+    private Response<UsuarioDTO> response;
 
     public ConsultarUsuarioTask(Context context, String token) {
         this.context = context;
@@ -40,9 +43,6 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
     @Override //Pré execucao
     protected void onPreExecute() {
         Log.i("LRDG", "Pré execução ConsultarUsuarioTask");
-
-        progressDialog = new ProgressDialog(context);
-        progressDialog = ProgressDialog.show(context, "Aguarde", "Carregando Usuario...", true, true);
     }
 
     @Override //Execução
@@ -56,9 +56,8 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
         UsuarioDTO dto;
 
         try {
-
             Call<UsuarioDTO> call = endpoint.consultarUsuario(token);
-            Response<UsuarioDTO> response = call.execute();
+            response = call.execute();
 
             if (response.isSuccessful()) {
                 dto = response.body();
@@ -74,7 +73,7 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
                     );
                 }
             } else {
-                Log.i("LRDG", "Erro ConsultarUsuarioTask");
+                Log.i("LRDG", "Erro ConsultarUsuarioTask " + response.code());
             }
 
         } catch (IOException e) {
@@ -85,10 +84,11 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
     }
 
     @Override
-    protected void onPostExecute(final Usuario usuario) {
+    protected void onPostExecute(Usuario usuario) {
         Log.i("LRDG", "Pós execução ConsultarUsuarioTask");
 
-        activity = (AppCompatActivity) context;
+        AppCompatActivity activity = (AppCompatActivity) context;
+
         TextView nomeCompletoView = (TextView) activity.findViewById(R.id.nomeCompleto);
         TextView emailView = (TextView) activity.findViewById(R.id.email);
         ImageView imageView = (ImageView) activity.findViewById(R.id.profile_image);
@@ -96,7 +96,5 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
         nomeCompletoView.setText(usuario.getNomeCompleto());
         emailView.setText(usuario.getEmail());
         Picasso.with(context).load(usuario.getFoto()).into(imageView);
-
-        progressDialog.dismiss();
     }
 }

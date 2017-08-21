@@ -58,8 +58,8 @@ public class AutenticarUsuarioTask extends AsyncTask<Void, Void, Boolean> {
 
                 if (tokenDTO != null) {
                     sharedPreferences = new SharedPreferencesHelper(context);
-                    sharedPreferences.setTokenCache(tokenDTO.getKey());
-                    Log.d("LRDG", "Autenticado! Token " + tokenDTO.getKey());
+                    sharedPreferences.setToken(tokenDTO.getKey());
+                    Log.d("LRDG", "Autenticado! Token =" + tokenDTO.getKey());
 
                     return true;
                 }

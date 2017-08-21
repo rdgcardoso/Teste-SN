@@ -14,7 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.LogoutDTO;
@@ -22,6 +26,7 @@ import br.com.teste.testerecyclerview.app.task.ConsultarUsuarioTask;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 import br.com.teste.testerecyclerview.app.ws.LogoutEndpoint;
+import br.com.teste.testerecyclerview.domain.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,18 +38,19 @@ public class MainActivity extends StartNightActivity {
     private SharedPreferencesHelper sharedPreferencesHelper;
     private LogoutDTO logoutDTO;
     private Context context;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         context = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("@string/app_name");
         setSupportActionBar(toolbar);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
         new ConsultarUsuarioTask(this, sharedPreferencesHelper.recuperarToken()).execute();
 

@@ -19,6 +19,9 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
+    public Usuario() {
+    }
+
     public String getEmail() {
         return email;
     }

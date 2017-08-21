@@ -7,7 +7,7 @@ import android.util.Log;
 public class SharedPreferencesHelper {
 
     private Context context;
-    private final static String meutoken = "meutoken1111111111111111";
+    private final static String meutoken = "meutoken22222";
     private SharedPreferences sharedPreferences;
     private String token;
 
@@ -24,7 +24,7 @@ public class SharedPreferencesHelper {
 
     public String getToken() {
         sharedPreferences = context.getSharedPreferences(meutoken, Context.MODE_PRIVATE);
-        token += sharedPreferences.getString(meutoken, "");
+        token = sharedPreferences.getString(meutoken, "");
         Log.d("LRDG", "TOKEN: " + token);
         return token;
     }
