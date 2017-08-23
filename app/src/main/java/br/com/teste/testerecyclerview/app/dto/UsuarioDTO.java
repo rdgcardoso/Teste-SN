@@ -6,25 +6,11 @@ public class UsuarioDTO {
     private String email;
     private String first_name;
     private String last_name;
+    private String data_nascimento;
+    private String password2;
+    private String password1;
+    private String sexo;
     private UsuarioInformacoesDTO user_info;
-    private String key;
-    private String django_key;
-
-    public String getDjango_key() {
-        return django_key;
-    }
-
-    public void setDjango_key(String django_key) {
-        this.django_key = django_key;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     public long getId() {
         return id;
@@ -75,8 +61,47 @@ public class UsuarioDTO {
     }
 
     public String getFoto() {
-
         return user_info.getFoto();
+    }
+
+    public String getData_nascimento() {
+        return data_nascimento;
+    }
+
+    public void setData_nascimento(String data_nascimento) {
+        this.data_nascimento = data_nascimento;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public UsuarioInformacoesDTO getUser_info() {
+        return user_info;
+    }
+
+    public void setUser_info(UsuarioInformacoesDTO user_info) {
+        this.user_info = user_info;
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
+
+    public String getPassword1() {
+        return password1;
+    }
+
+    public void setPassword1(String password1) {
+        this.password1 = password1;
     }
 
     @Override
@@ -87,9 +112,9 @@ public class UsuarioDTO {
                 ", email='" + email + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
+                ", data_nascimento='" + data_nascimento + '\'' +
+                ", sexo='" + sexo + '\'' +
                 ", user_info=" + user_info +
-                ", key='" + key + '\'' +
-                ", django_key='" + django_key + '\'' +
                 '}';
     }
 }

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,8 @@ import br.com.teste.testerecyclerview.domain.model.Balada;
 import br.com.teste.testerecyclerview.domain.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Response;
+
+import static br.com.teste.testerecyclerview.R.mipmap.ic_launcher;
 
 public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
 
@@ -95,6 +98,9 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
 
         nomeCompletoView.setText(usuario.getNomeCompleto());
         emailView.setText(usuario.getEmail());
-        Picasso.with(context).load(usuario.getFoto()).into(imageView);
+
+        if (usuario.getFoto() != null) {
+            Picasso.with(context).load(usuario.getFoto()).into(imageView);
+        }
     }
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import br.com.teste.testerecyclerview.app.controller.LoginActivity;
 import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
+import br.com.teste.testerecyclerview.app.ws.CadastrarUsuarioEndpoint;
 import br.com.teste.testerecyclerview.app.ws.LoginEndpoint;
 import br.com.teste.testerecyclerview.app.ws.LogoutEndpoint;
 import br.com.teste.testerecyclerview.app.ws.RankingBaladasEndpoint;
@@ -51,6 +52,10 @@ public final class RetrofitHelper {
 
     public TokenEndpoint createTokenEndpoint() {
         return retrofit.create(TokenEndpoint.class);
+    }
+
+    public CadastrarUsuarioEndpoint createCadastrarUsuarioEndpoint() {
+        return retrofit.create(CadastrarUsuarioEndpoint.class);
     }
 
     public static RetrofitHelper with (Context context) {
