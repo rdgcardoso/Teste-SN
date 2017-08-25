@@ -4,13 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import br.com.teste.testerecyclerview.app.dto.BaladaDTO;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.ws.RankingBaladasEndpoint;
 import br.com.teste.testerecyclerview.domain.model.Balada;
+import br.com.teste.testerecyclerview.app.resources.CodigoRetornoHTTP;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -33,9 +35,11 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
     private Context context;
     private AppCompatActivity activity;
     private RankingBaladasEndpoint endpoint;
-    private ProgressDialog progressDialog;
     private View view;
     private String token;
+    private int responseCode;
+    private ProgressBar progressBar;
+    private TextView msgProgressBar;
 
     public ConsultarRankingBaladasTask(Context context, View view, String token) {
         this.context = context;
@@ -51,11 +55,6 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
     @Override //Pré execucao
     protected void onPreExecute() {
         Log.i("LRDG", "Pré execução ConsultarRankingBaladasTask");
-
-        if (view == null) {
-            progressDialog = new ProgressDialog(context);
-            progressDialog = ProgressDialog.show(context, "Aguarde", "Carregando Baladas...", true, true);
-        }
     }
 
     @Override //Execução
@@ -107,6 +106,7 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
                 }
             } else {
                 Log.i("LRDG", "Erro ConsultarRankingBaladasTask");
+                responseCode = response.code();
             }
 
         } catch (IOException e) {
@@ -119,6 +119,11 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
     @Override
     protected void onPostExecute(final List<Balada> baladaList) {
         Log.i("LRDG", "Pós execução ConsultarRankingBaladasTask");
+
+        CodigoRetornoHTTP codigo = new CodigoRetornoHTTP(responseCode);
+        if (codigo.notAuthorized(context)) {
+            return;
+        }
 
         activity = (AppCompatActivity) context;
         RecyclerView recyclerView = (RecyclerView) activity.findViewById(R.id.recycler);
@@ -146,8 +151,10 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
             swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(context, "Ranking atualizado...", Toast.LENGTH_SHORT).show();
         } else {
-            progressDialog.dismiss();
+            progressBar = (ProgressBar) activity.findViewById(R.id.progressIndeterminateBar);
+            msgProgressBar = (TextView) activity.findViewById(R.id.msgProgressBar);
+            progressBar.setVisibility(View.GONE);
+            msgProgressBar.setVisibility(View.GONE);
         }
-
     }
 }

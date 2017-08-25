@@ -1,26 +1,19 @@
 package br.com.teste.testerecyclerview.app.controller;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
+
+import java.io.IOException;
 
 import br.com.teste.testerecyclerview.R;
-import br.com.teste.testerecyclerview.app.dto.LogoutDTO;
-import br.com.teste.testerecyclerview.app.dto.TokenDTO;
-import br.com.teste.testerecyclerview.app.dto.UsuarioDTO;
-import br.com.teste.testerecyclerview.app.task.AutenticarUsuarioTask;
-import br.com.teste.testerecyclerview.app.task.ConsultarUsuarioTask;
+import br.com.teste.testerecyclerview.app.dto.LoginDTO;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
-import br.com.teste.testerecyclerview.app.ws.LogoutEndpoint;
 import br.com.teste.testerecyclerview.app.ws.TokenEndpoint;
-import br.com.teste.testerecyclerview.domain.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +21,7 @@ import retrofit2.Response;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private SharedPreferencesHelper sharedPreferences;
+    private String erro;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,12 +42,12 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         } else { //TOKEN: VALIDO OU INVÁLIDO?
             TokenEndpoint endpoint = RetrofitHelper.with(getApplicationContext()).createTokenEndpoint();
-            Call<TokenDTO> call = endpoint.consultarToken(sharedPreferences.recuperarToken());
+            Call<LoginDTO> call = endpoint.consultarToken(sharedPreferences.recuperarToken());
 
-            call.enqueue(new Callback<TokenDTO>() {
+            call.enqueue(new Callback<LoginDTO>() {
                 Intent i;
                 @Override
-                public void onResponse(@NonNull Call<TokenDTO> call, @NonNull Response<TokenDTO> response) {
+                public void onResponse(@NonNull Call<LoginDTO> call, @NonNull Response<LoginDTO> response) {
                     if (response.isSuccessful()) {
                         Log.d("LRDG", "Consultado! Token válido=" + sharedPreferences.recuperarToken());
                         i = new Intent(getApplicationContext(), MainActivity.class);
@@ -70,8 +64,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<TokenDTO> call, @NonNull Throwable t) {
-                    Log.d("LRDG", "Falha ao consultar Token!");
+                public void onFailure(@NonNull Call<LoginDTO> call, @NonNull Throwable t) {
+                    Log.d("LRDG", "Falha ao consultar Token!"+t);
                 }
             });
         }

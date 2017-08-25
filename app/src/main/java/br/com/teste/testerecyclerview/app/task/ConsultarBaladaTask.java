@@ -5,7 +5,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -15,19 +18,19 @@ import java.io.IOException;
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.BaladaDTO;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
-import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
 import br.com.teste.testerecyclerview.domain.model.Balada;
+import br.com.teste.testerecyclerview.app.resources.CodigoRetornoHTTP;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
+public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada>  {
 
     private Context context;
     private long id;
-    private ProgressDialog progressDialog;
     private AppCompatActivity activity;
     private String token;
+    private int responseCode;
 
     public ConsultarBaladaTask(Context context, long id, String token) {
         this.context = context;
@@ -38,9 +41,6 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
     @Override //Pré execucao
     protected void onPreExecute() {
         Log.i("LRDG", "Pré execução ConsultarBaladaTask");
-
-        progressDialog = new ProgressDialog(context);
-        progressDialog = ProgressDialog.show(context, "Aguarde", "Carregando Balada...", true, true);
     }
 
     @Override //Execução
@@ -82,6 +82,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
                 }
             } else {
                 Log.i("LRDG", "Erro ConsultarBaladaTask");
+                responseCode = response.code();
             }
 
         } catch (IOException e) {
@@ -93,7 +94,13 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
 
     @Override
     protected void onPostExecute(final Balada balada) {
-        Log.i("LRDG", "Pós execução ConsultarBaladaTask");
+
+        Log.i("LRDG", "Pós execução ConsultarBaladaTask" + responseCode);
+
+        CodigoRetornoHTTP codigo = new CodigoRetornoHTTP(responseCode);
+        if (codigo.notAuthorized(context)) {
+            return;
+        }
 
         activity = (AppCompatActivity) context;
         ImageView fotoView = (ImageView) activity.findViewById(R.id.foto);
@@ -103,6 +110,9 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
         TextView siteView = (TextView) activity.findViewById(R.id.site);
         TextView musicaTipoView = (TextView) activity.findViewById(R.id.tipoMusica);
         TextView precoMedioView = (TextView) activity.findViewById(R.id.precoMedio);
+        ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.progressIndeterminateBar);
+        LinearLayout linearLayout = (LinearLayout) activity.findViewById(R.id.detalhesBaladaContainer);
+
 
         Picasso.with(context).load(balada.getFoto()).into(fotoView);
         endereco1View.setText(balada.getEndereco1());
@@ -112,6 +122,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada> {
         musicaTipoView.setText(balada.getTipoMusicas());
         precoMedioView.setText(balada.getPrecoMedio());
 
-        progressDialog.dismiss();
+        progressBar.setVisibility(View.GONE);
+        linearLayout.setVisibility(View.VISIBLE);
     }
 }

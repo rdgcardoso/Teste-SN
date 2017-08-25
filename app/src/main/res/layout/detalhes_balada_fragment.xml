@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,68 +8,80 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <TextView
+        <ProgressBar
+            android:id="@+id/progressIndeterminateBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descrição"
-            android:textColor="#fff"
-            android:textStyle="bold" />
+            android:layout_gravity="center"
+            android:indeterminateTint="#FFF" />
 
-        <TextView
-            android:id="@+id/descricao"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/detalhesBaladaContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="A balada X blablabla"
-            android:textColor="#fff"/>
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:visibility="invisible">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Site"
-            android:textColor="#fff"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descrição"
+                android:textColor="#fff"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/site"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:text="http://balada.com.br"
-            android:textColor="#fff" />
+            <TextView
+                android:id="@+id/descricao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Tipo de Música"
-            android:textColor="#fff"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Site"
+                android:textColor="#fff"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tipoMusica"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sertanejo, Forró"
-            android:textColor="#fff" />
+            <TextView
+                android:id="@+id/site"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:textColor="#fff" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Preço Médio"
-            android:textColor="#fff"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Tipo de Música"
+                android:textColor="#fff"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/precoMedio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="R$25"
-            android:textColor="#fff" />
+            <TextView
+                android:id="@+id/tipoMusica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Preço Médio"
+                android:textColor="#fff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/precoMedio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

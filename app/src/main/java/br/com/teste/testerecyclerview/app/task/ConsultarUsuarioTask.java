@@ -1,42 +1,31 @@
 package br.com.teste.testerecyclerview.app.task;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 
 import br.com.teste.testerecyclerview.R;
-import br.com.teste.testerecyclerview.app.controller.LoginActivity;
-import br.com.teste.testerecyclerview.app.controller.MainActivity;
-import br.com.teste.testerecyclerview.app.dto.BaladaDTO;
 import br.com.teste.testerecyclerview.app.dto.UsuarioDTO;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
-import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
 import br.com.teste.testerecyclerview.app.ws.UsuarioEndpoint;
-import br.com.teste.testerecyclerview.domain.model.Balada;
+import br.com.teste.testerecyclerview.app.resources.CodigoRetornoHTTP;
 import br.com.teste.testerecyclerview.domain.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Response;
-
-import static br.com.teste.testerecyclerview.R.mipmap.ic_launcher;
 
 public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
 
     private Context context;
     private String token;
     private Response<UsuarioDTO> response;
+    private int responseCode;
 
     public ConsultarUsuarioTask(Context context, String token) {
         this.context = context;
@@ -77,6 +66,7 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
                 }
             } else {
                 Log.i("LRDG", "Erro ConsultarUsuarioTask " + response.code());
+                responseCode = response.code();
             }
 
         } catch (IOException e) {
@@ -89,6 +79,11 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
     @Override
     protected void onPostExecute(Usuario usuario) {
         Log.i("LRDG", "Pós execução ConsultarUsuarioTask");
+
+        CodigoRetornoHTTP codigo = new CodigoRetornoHTTP(responseCode);
+        if (codigo.notAuthorized(context)) {
+            return;
+        }
 
         AppCompatActivity activity = (AppCompatActivity) context;
 

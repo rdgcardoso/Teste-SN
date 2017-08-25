@@ -14,6 +14,14 @@ public class Usuario implements Serializable {
     private String senha;
     private String senhaConfirmacao;
 
+    public Usuario() {
+    }
+
+    public Usuario(String username, String senha) {
+        this.username = username;
+        this.senha = senha;
+    }
+
     public Usuario(String username, String nome, String sobrenome, String email, String dataNascimento, String genero, String senha, String senhaConfirmacao) {
         this.username = username;
         this.nome = nome;
@@ -34,8 +42,7 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public Usuario() {
-    }
+
 
     public String getEmail() {
         return email;
@@ -164,6 +171,8 @@ public class Usuario implements Serializable {
             throw new Exception("E-mail não pode ser nulo!");
         } else if (email.isEmpty()) {
             throw new Exception("Campo obrigatório");
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            throw new Exception("E-mail inválido");
         }
     }
 
@@ -178,7 +187,7 @@ public class Usuario implements Serializable {
     public void validarGenero() throws Exception {
         if (genero == null) {
             throw new Exception("Gênero não pode ser nulo!");
-        } else if (genero.isEmpty()) {
+        } else if (Integer.parseInt(genero) < 0) {
             throw new Exception("Campo obrigatório");
         }
     }
@@ -188,8 +197,6 @@ public class Usuario implements Serializable {
             throw new Exception("Senha não pode ser nula!");
         } else if (senha.isEmpty()) {
             throw new Exception("Campo obrigatório");
-        } else if (!senha.equals(senhaConfirmacao)) {
-            throw new Exception("Os dois campos de senha não combinam");
         } else if (senha.length()<6) {
             throw new Exception("Esta senha é muito curta. Ela deve ter pelo menos 6 caracteres");
         }

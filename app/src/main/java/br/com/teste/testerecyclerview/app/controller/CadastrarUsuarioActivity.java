@@ -1,19 +1,19 @@
 package br.com.teste.testerecyclerview.app.controller;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -22,10 +22,11 @@ import java.io.IOException;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.CadastroUsuarioDTO;
-import br.com.teste.testerecyclerview.app.dto.UsuarioDTO;
+import br.com.teste.testerecyclerview.app.resources.Mask;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 import br.com.teste.testerecyclerview.app.ws.CadastrarUsuarioEndpoint;
+import br.com.teste.testerecyclerview.domain.model.Genero;
 import br.com.teste.testerecyclerview.domain.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,9 +34,9 @@ import retrofit2.Response;
 
 public class CadastrarUsuarioActivity extends StartNightActivity {
 
-    private TextInputEditText usernameView, nomeView, sobrenomeView, emailView, dataNascimentoView, generoView, senhaView, senhaConfirmacaoView;
+    private TextInputEditText usernameView, nomeView, sobrenomeView, emailView, dataNascimentoView, senhaView, senhaConfirmacaoView;
+    private Spinner generoView;
     private TextInputLayout usernameViewContainer, nomeViewContainer, sobrenomeViewContainer, emailViewContainer, dataNascimentoViewContainer, generoViewContainer, senhaViewContainer, senhaConfirmacaoViewContainer;
-    private Button bt_cadastrar;
     private CoordinatorLayout coordinatorLayout;
     private CadastroUsuarioDTO cadastroUsuarioDTO;
 
@@ -44,14 +45,14 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_usuario);
 
-        bt_cadastrar = (Button) findViewById(R.id.bt_cadastrar);
+        Button bt_cadastrar = (Button) findViewById(R.id.bt_cadastrar);
 
         usernameView = (TextInputEditText) findViewById(R.id.username);
         nomeView = (TextInputEditText) findViewById(R.id.nome);
         sobrenomeView = (TextInputEditText) findViewById(R.id.sobrenome);
         emailView = (TextInputEditText) findViewById(R.id.email);
         dataNascimentoView = (TextInputEditText) findViewById(R.id.dataNascimento);
-        generoView = (TextInputEditText) findViewById(R.id.genero);
+        generoView = (Spinner) findViewById(R.id.genero);
         senhaView = (TextInputEditText) findViewById(R.id.senha);
         senhaConfirmacaoView = (TextInputEditText) findViewById(R.id.senhaConfirmacao);
 
@@ -67,6 +68,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         senhaConfirmacaoView.setOnEditorActionListener(editorAction);
+        dataNascimentoView.addTextChangedListener(Mask.insert(Mask.MaskType.DATA, dataNascimentoView));
 
         bt_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,48 +81,31 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
                         sobrenomeView.getText().toString(),
                         emailView.getText().toString(),
                         dataNascimentoView.getText().toString(),
-                        generoView.getText().toString(),
+                        String.valueOf(((Genero)generoView.getSelectedItem()).getIdSelecionado()),
                         senhaView.getText().toString(),
                         senhaConfirmacaoView.getText().toString()
                 );
 
                 //validando dados
-                if (validarUsuario(usuario)) {
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Verifique os campos", Snackbar.LENGTH_LONG);
-                    View sbView = snackbar.getView();
-                    TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-                    textView.setTextColor(Color.RED);
-                    snackbar.show();
+                if (validarFormularioUsuario(usuario)) {
 
+                    msgErroSnackBar(coordinatorLayout, "Verifique os campos");
                     return;
                 }
 
                 Log.d("LRDG", "usuario: " + usuario.toString());
 
-                UsuarioDTO usuarioDTO = new UsuarioDTO();
-                usuarioDTO.setUsername(usuario.getUsername());
-                usuarioDTO.setFirst_name(usuario.getNome());
-                usuarioDTO.setLast_name(usuario.getSobrenome());
-                usuarioDTO.setEmail(usuario.getEmail());
-                usuarioDTO.setData_nascimento(usuario.getDataNascimento());
-                usuarioDTO.setSexo(usuario.getGenero());
-                usuarioDTO.setPassword1(usuario.getSenha());
-                usuarioDTO.setPassword2(usuario.getSenhaConfirmacao());
-
-                Log.d("LRDG", "usuarioDTO: " + usuarioDTO.toString());
-
                 CadastrarUsuarioEndpoint endpoint = RetrofitHelper.with(getApplicationContext()).createCadastrarUsuarioEndpoint();
                 Call<CadastroUsuarioDTO> call = endpoint.cadastrarUsuario(
-                        usuarioDTO.getUsername(),
-                        usuarioDTO.getFirst_name(),
-                        usuarioDTO.getLast_name(),
-                        usuarioDTO.getEmail(),
-                        usuarioDTO.getData_nascimento(),
-                        usuarioDTO.getSexo(),
-                        usuarioDTO.getPassword1(),
-                        usuarioDTO.getPassword2()
+                        usuario.getUsername(),
+                        usuario.getNome(),
+                        usuario.getSobrenome(),
+                        usuario.getEmail(),
+                        usuario.getDataNascimento(),
+                        usuario.getGenero(),
+                        usuario.getSenha(),
+                        usuario.getSenhaConfirmacao()
                 );
-
 
                 call.enqueue(new Callback<CadastroUsuarioDTO>() {
                     @Override
@@ -128,7 +113,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
                         cadastroUsuarioDTO = response.body();
 
                         Log.d("LRDG", "response: " + response.body());
-                        Log.d("LRDG", " CadastroUsuarioDTO response: " + cadastroUsuarioDTO);
+                        Log.d("LRDG", "cadastroUsuarioDTO response: " + cadastroUsuarioDTO);
                         if (response.isSuccessful()) {
 
                             if (cadastroUsuarioDTO != null) {
@@ -145,8 +130,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
                                 startActivity(i);
                                 finish();
                             }
-                        }
-                        if (!response.isSuccessful()) {
+                        } else {
 
                             try {
                                 Gson gson = new Gson();
@@ -216,15 +200,15 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
             usuario.setSobrenome(sobrenomeView.getText().toString());
             usuario.setEmail(emailView.getText().toString());
             usuario.setDataNascimento(dataNascimentoView.getText().toString());
-            usuario.setGenero(generoView.getText().toString());
+            usuario.setGenero(String.valueOf(((Genero)generoView.getSelectedItem()).getIdSelecionado()));
             usuario.setSenha(senhaView.getText().toString());
             usuario.setSenhaConfirmacao(senhaConfirmacaoView.getText().toString());
 
-            return validarUsuario(usuario);
+            return validarFormularioUsuario(usuario);
         }
     };
 
-    private boolean validarUsuario(Usuario usuario) {
+    private boolean validarFormularioUsuario(Usuario usuario) {
 
         boolean isOk = false;
 
@@ -294,5 +278,13 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         }
 
         return isOk;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        generoView.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                Genero.values()));
     }
 }

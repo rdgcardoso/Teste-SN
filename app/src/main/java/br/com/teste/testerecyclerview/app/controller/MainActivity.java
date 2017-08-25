@@ -1,5 +1,6 @@
 package br.com.teste.testerecyclerview.app.controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +54,7 @@ public class MainActivity extends StartNightActivity {
         setSupportActionBar(toolbar);
 
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
+
         new ConsultarUsuarioTask(this, sharedPreferencesHelper.recuperarToken()).execute();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
