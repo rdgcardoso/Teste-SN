@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -35,7 +34,7 @@ public class LoginActivity extends StartNightActivity {
     private LoginDTO loginDTO;
     private SharedPreferencesHelper sharedPreferences;
     private TextInputEditText usernameView, senhaView;
-    private TextInputLayout usernameContainerView, senhaContainerView;
+    private TextInputLayout usernameLayout, senhaLayout;
     private CoordinatorLayout coordinatorLayout;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,8 +44,8 @@ public class LoginActivity extends StartNightActivity {
 
         usernameView = (TextInputEditText) findViewById(R.id.username);
         senhaView = (TextInputEditText) findViewById(R.id.senha);
-        usernameContainerView = (TextInputLayout) findViewById(R.id.usernameContainer);
-        senhaContainerView = (TextInputLayout) findViewById(R.id.senhaContainer);
+        usernameLayout = (TextInputLayout) findViewById(R.id.usernameLayout);
+        senhaLayout = (TextInputLayout) findViewById(R.id.senhaLayout);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         senhaView.setOnEditorActionListener(editorAction);
@@ -113,8 +112,8 @@ public class LoginActivity extends StartNightActivity {
                                 Log.d("LRDG", "loginDTO=" + loginDTO.toString());
 
                                 if (loginDTO.getNon_field_errors() != null) {
-                                    usernameContainerView.setError(" ");
-                                    senhaContainerView.setError(" ");
+                                    usernameLayout.setError(" ");
+                                    senhaLayout.setError(" ");
                                     msgErroSnackBar(coordinatorLayout, loginDTO.getNon_field_errors()[0]);
                                     Log.d("LRDG", "Erro no formulário: " + loginDTO.getNon_field_errors()[0]);
                                 }
@@ -172,19 +171,19 @@ public class LoginActivity extends StartNightActivity {
 
         try {
             usuario.validarUsername();
-            usernameContainerView.setError("");
+            usernameLayout.setError("");
 
         } catch (Exception cause) {
-            usernameContainerView.setError(cause.getMessage());
+            usernameLayout.setError(cause.getMessage());
             isOk = true;
         }
 
         try {
             usuario.validarSenha();
-            senhaContainerView.setError("");
+            senhaLayout.setError("");
 
         } catch (Exception cause) {
-            senhaContainerView.setError(cause.getMessage());
+            senhaLayout.setError(cause.getMessage());
             isOk = true;
         }
 

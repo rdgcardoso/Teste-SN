@@ -36,7 +36,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
 
     private TextInputEditText usernameView, nomeView, sobrenomeView, emailView, dataNascimentoView, senhaView, senhaConfirmacaoView;
     private Spinner generoView;
-    private TextInputLayout usernameViewContainer, nomeViewContainer, sobrenomeViewContainer, emailViewContainer, dataNascimentoViewContainer, generoViewContainer, senhaViewContainer, senhaConfirmacaoViewContainer;
+    private TextInputLayout usernameLayout, nomeLayout, sobrenomeLayout, emailLayout, dataNascimentoLayout, generoLayout, senhaLayout, senhaConfirmacaoLayout;
     private CoordinatorLayout coordinatorLayout;
     private CadastroUsuarioDTO cadastroUsuarioDTO;
 
@@ -56,14 +56,14 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         senhaView = (TextInputEditText) findViewById(R.id.senha);
         senhaConfirmacaoView = (TextInputEditText) findViewById(R.id.senhaConfirmacao);
 
-        usernameViewContainer = (TextInputLayout) findViewById(R.id.usernameContainer);
-        nomeViewContainer = (TextInputLayout) findViewById(R.id.nomeContainer);
-        sobrenomeViewContainer = (TextInputLayout) findViewById(R.id.sobrenomeContainer);
-        emailViewContainer = (TextInputLayout) findViewById(R.id.emailContainer);
-        dataNascimentoViewContainer = (TextInputLayout) findViewById(R.id.dataNascimentoContainer);
-        generoViewContainer = (TextInputLayout) findViewById(R.id.generoContainer);
-        senhaViewContainer = (TextInputLayout) findViewById(R.id.senhaContainer);
-        senhaConfirmacaoViewContainer = (TextInputLayout) findViewById(R.id.senhaConfirmacaoContainer);
+        usernameLayout = (TextInputLayout) findViewById(R.id.usernameLayout);
+        nomeLayout = (TextInputLayout) findViewById(R.id.nomeLayout);
+        sobrenomeLayout = (TextInputLayout) findViewById(R.id.sobrenomeLayout);
+        emailLayout = (TextInputLayout) findViewById(R.id.emailLayout);
+        dataNascimentoLayout = (TextInputLayout) findViewById(R.id.dataNascimentoLayout);
+        generoLayout = (TextInputLayout) findViewById(R.id.generoLayout);
+        senhaLayout = (TextInputLayout) findViewById(R.id.senhaLayout);
+        senhaConfirmacaoLayout = (TextInputLayout) findViewById(R.id.senhaConfirmacaoLayout);
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
@@ -139,28 +139,28 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
                                 Log.d("LRDG", "cadastroUsuarioDTO=" + cadastroUsuarioDTO.toString());
 
                                 if (cadastroUsuarioDTO.getUsername() != null) {
-                                    usernameViewContainer.setError(cadastroUsuarioDTO.getUsername()[0]);
+                                    usernameLayout.setError(cadastroUsuarioDTO.getUsername()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getFirst_name() != null) {
-                                    nomeViewContainer.setError(cadastroUsuarioDTO.getFirst_name()[0]);
+                                    nomeLayout.setError(cadastroUsuarioDTO.getFirst_name()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getLast_name() != null) {
-                                    sobrenomeViewContainer.setError(cadastroUsuarioDTO.getLast_name()[0]);
+                                    sobrenomeLayout.setError(cadastroUsuarioDTO.getLast_name()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getEmail() != null) {
-                                    emailViewContainer.setError(cadastroUsuarioDTO.getEmail()[0]);
+                                    emailLayout.setError(cadastroUsuarioDTO.getEmail()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getData_nascimento() != null) {
-                                    dataNascimentoViewContainer.setError(cadastroUsuarioDTO.getData_nascimento()[0]);
+                                    dataNascimentoLayout.setError(cadastroUsuarioDTO.getData_nascimento()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getSexo() != null) {
-                                    generoViewContainer.setError(cadastroUsuarioDTO.getSexo()[0]);
+                                    generoLayout.setError(cadastroUsuarioDTO.getSexo()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getPassword1() != null) {
-                                    senhaViewContainer.setError(cadastroUsuarioDTO.getPassword1()[0]);
+                                    senhaLayout.setError(cadastroUsuarioDTO.getPassword1()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getPassword2() != null) {
-                                    senhaConfirmacaoViewContainer.setError(cadastroUsuarioDTO.getPassword2()[0]);
+                                    senhaConfirmacaoLayout.setError(cadastroUsuarioDTO.getPassword2()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getNon_field_errors() != null) {
                                     Log.d("LRDG", "Erro no formulário: " + cadastroUsuarioDTO.getNon_field_errors()[0]);
@@ -214,66 +214,66 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
 
         try {
             usuario.validarUsername();
-            usernameViewContainer.setError("");
+            usernameLayout.setError("");
 
         } catch (Exception cause) {
-            usernameViewContainer.setError(cause.getMessage());
+            usernameLayout.setError(cause.getMessage());
             isOk = true;
         }
         try {
             usuario.validarNome();
-            nomeViewContainer.setError("");
+            nomeLayout.setError("");
 
         } catch (Exception cause) {
-            nomeViewContainer.setError(cause.getMessage());
+            nomeLayout.setError(cause.getMessage());
             isOk = true;
         }
         try {
             usuario.validarSobrenome();
-            sobrenomeViewContainer.setError("");
+            sobrenomeLayout.setError("");
 
         } catch (Exception cause) {
-            sobrenomeViewContainer.setError(cause.getMessage());
+            sobrenomeLayout.setError(cause.getMessage());
             isOk = true;
         }
         try {
             usuario.validarEmail();
-            emailViewContainer.setError("");
+            emailLayout.setError("");
 
         } catch (Exception cause) {
-            emailViewContainer.setError(cause.getMessage());
+            emailLayout.setError(cause.getMessage());
             isOk = true;
         }
         try {
             usuario.validarDataNascimento();
-            dataNascimentoViewContainer.setError("");
+            dataNascimentoLayout.setError("");
 
         } catch (Exception cause) {
-            dataNascimentoViewContainer.setError(cause.getMessage());
+            dataNascimentoLayout.setError(cause.getMessage());
             isOk = true;
         }
         try {
             usuario.validarGenero();
-            generoViewContainer.setError("");
+            generoLayout.setError("");
 
         } catch (Exception cause) {
-            generoViewContainer.setError(cause.getMessage());
+            generoLayout.setError(cause.getMessage());
             isOk = true;
         }
         try {
             usuario.validarSenha();
-            senhaViewContainer.setError("");
+            senhaLayout.setError("");
 
         } catch (Exception cause) {
-            senhaViewContainer.setError(cause.getMessage());
+            senhaLayout.setError(cause.getMessage());
             isOk = true;
         }
         try {
             usuario.validarSenhaConfirmacao();
-            senhaConfirmacaoViewContainer.setError("");
+            senhaConfirmacaoLayout.setError("");
 
         } catch (Exception cause) {
-            senhaConfirmacaoViewContainer.setError(cause.getMessage());
+            senhaConfirmacaoLayout.setError(cause.getMessage());
             isOk = true;
         }
 

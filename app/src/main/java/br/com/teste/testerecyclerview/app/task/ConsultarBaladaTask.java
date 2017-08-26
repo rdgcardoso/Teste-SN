@@ -111,7 +111,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada>  {
         TextView musicaTipoView = (TextView) activity.findViewById(R.id.tipoMusica);
         TextView precoMedioView = (TextView) activity.findViewById(R.id.precoMedio);
         ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.progressIndeterminateBar);
-        LinearLayout linearLayout = (LinearLayout) activity.findViewById(R.id.detalhesBaladaContainer);
+        LinearLayout detalhesBaladaContainer = (LinearLayout) activity.findViewById(R.id.detalhesBaladaContainer);
 
 
         Picasso.with(context).load(balada.getFoto()).into(fotoView);
@@ -123,6 +123,6 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada>  {
         precoMedioView.setText(balada.getPrecoMedio());
 
         progressBar.setVisibility(View.GONE);
-        linearLayout.setVisibility(View.VISIBLE);
+        detalhesBaladaContainer.setVisibility(View.VISIBLE);
     }
 }
