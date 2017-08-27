@@ -4,7 +4,6 @@ import android.util.Log;
 
 public enum Genero {
 
-    VAZIO("Selecione um Gênero", -1),
     MASCULINO("Masculino", 0),
     FEMININO("Feminino", 1);
 

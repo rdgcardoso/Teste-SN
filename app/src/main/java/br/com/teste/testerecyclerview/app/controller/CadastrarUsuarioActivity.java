@@ -28,6 +28,7 @@ import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 import br.com.teste.testerecyclerview.app.ws.CadastrarUsuarioEndpoint;
 import br.com.teste.testerecyclerview.domain.model.Genero;
 import br.com.teste.testerecyclerview.domain.model.Usuario;
+import fr.ganfra.materialspinner.MaterialSpinner;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +36,7 @@ import retrofit2.Response;
 public class CadastrarUsuarioActivity extends StartNightActivity {
 
     private TextInputEditText usernameView, nomeView, sobrenomeView, emailView, dataNascimentoView, senhaView, senhaConfirmacaoView;
-    private Spinner generoView;
+    private MaterialSpinner generoView;
     private TextInputLayout usernameLayout, nomeLayout, sobrenomeLayout, emailLayout, dataNascimentoLayout, generoLayout, senhaLayout, senhaConfirmacaoLayout;
     private CoordinatorLayout coordinatorLayout;
     private CadastroUsuarioDTO cadastroUsuarioDTO;
@@ -52,7 +53,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         sobrenomeView = (TextInputEditText) findViewById(R.id.sobrenome);
         emailView = (TextInputEditText) findViewById(R.id.email);
         dataNascimentoView = (TextInputEditText) findViewById(R.id.dataNascimento);
-        generoView = (Spinner) findViewById(R.id.genero);
+        generoView = (MaterialSpinner) findViewById(R.id.genero);
         senhaView = (TextInputEditText) findViewById(R.id.senha);
         senhaConfirmacaoView = (TextInputEditText) findViewById(R.id.senhaConfirmacao);
 
@@ -61,7 +62,6 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         sobrenomeLayout = (TextInputLayout) findViewById(R.id.sobrenomeLayout);
         emailLayout = (TextInputLayout) findViewById(R.id.emailLayout);
         dataNascimentoLayout = (TextInputLayout) findViewById(R.id.dataNascimentoLayout);
-        generoLayout = (TextInputLayout) findViewById(R.id.generoLayout);
         senhaLayout = (TextInputLayout) findViewById(R.id.senhaLayout);
         senhaConfirmacaoLayout = (TextInputLayout) findViewById(R.id.senhaConfirmacaoLayout);
 
@@ -74,6 +74,8 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
             @Override
             public void onClick(View view) {
 
+                Log.d("LRDG", "generoView.getSelectedItem()" + (generoView.getSelectedItemId()-1));
+
                 Usuario usuario;
                 usuario = new Usuario(
                         usernameView.getText().toString(),
@@ -81,10 +83,12 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
                         sobrenomeView.getText().toString(),
                         emailView.getText().toString(),
                         dataNascimentoView.getText().toString(),
-                        String.valueOf(((Genero)generoView.getSelectedItem()).getIdSelecionado()),
+                        String.valueOf(generoView.getSelectedItemId()-1),
                         senhaView.getText().toString(),
                         senhaConfirmacaoView.getText().toString()
                 );
+
+                Log.d("LRDG", "usuario=" + (usuario.toString()));
 
                 //validando dados
                 if (validarFormularioUsuario(usuario)) {
@@ -214,7 +218,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
 
         try {
             usuario.validarUsername();
-            usernameLayout.setError("");
+            usernameLayout.setError(null);
 
         } catch (Exception cause) {
             usernameLayout.setError(cause.getMessage());
@@ -222,7 +226,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         }
         try {
             usuario.validarNome();
-            nomeLayout.setError("");
+            nomeLayout.setError(null);
 
         } catch (Exception cause) {
             nomeLayout.setError(cause.getMessage());
@@ -230,7 +234,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         }
         try {
             usuario.validarSobrenome();
-            sobrenomeLayout.setError("");
+            sobrenomeLayout.setError(null);
 
         } catch (Exception cause) {
             sobrenomeLayout.setError(cause.getMessage());
@@ -238,7 +242,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         }
         try {
             usuario.validarEmail();
-            emailLayout.setError("");
+            emailLayout.setError(null);
 
         } catch (Exception cause) {
             emailLayout.setError(cause.getMessage());
@@ -246,7 +250,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         }
         try {
             usuario.validarDataNascimento();
-            dataNascimentoLayout.setError("");
+            dataNascimentoLayout.setError(null);
 
         } catch (Exception cause) {
             dataNascimentoLayout.setError(cause.getMessage());
@@ -254,15 +258,15 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         }
         try {
             usuario.validarGenero();
-            generoLayout.setError("");
+            generoView.setError(null);
 
         } catch (Exception cause) {
-            generoLayout.setError(cause.getMessage());
+            generoView.setError(cause.getMessage());
             isOk = true;
         }
         try {
             usuario.validarSenha();
-            senhaLayout.setError("");
+            senhaLayout.setError(null);
 
         } catch (Exception cause) {
             senhaLayout.setError(cause.getMessage());
@@ -270,7 +274,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         }
         try {
             usuario.validarSenhaConfirmacao();
-            senhaConfirmacaoLayout.setError("");
+            senhaConfirmacaoLayout.setError(null);
 
         } catch (Exception cause) {
             senhaConfirmacaoLayout.setError(cause.getMessage());
@@ -283,8 +287,12 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        generoView.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                Genero.values()));
+
+        ArrayAdapter<Genero> adapterGenero = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                Genero.values());
+
+        adapterGenero.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        generoView.setAdapter(adapterGenero);
     }
 }
