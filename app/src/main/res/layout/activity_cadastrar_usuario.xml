@@ -4,7 +4,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp">
+    android:padding="20dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -130,6 +130,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
+                style="@style/AppTheme.Button"
                 android:id="@+id/bt_cadastrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

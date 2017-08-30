@@ -34,7 +34,7 @@ public class BaladaDetalhesActivity extends StartNightActivity {
     private BaladaDetalhesFragment detalhesBaladaFragment;
 
     private int[] tabIcons = {
-            R.drawable.ic_info_outline_white_18dp,
+            R.drawable.ic_description_white_18dp,
             R.drawable.ic_event_white_18dp
     };
 
@@ -86,18 +86,19 @@ public class BaladaDetalhesActivity extends StartNightActivity {
     private void setupTabIcons() {
 
         LinearLayout tabUm = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
-        TextView tabUmText = (TextView) tabUm.findViewById(R.id.tab);
+        TextView tabUmText = (TextView) tabUm.findViewById(R.id.tabText);
+        ImageView tabUmIcon = (ImageView) tabUm.findViewById(R.id.tabIcon);
         tabUmText.setText("Informações");
-        tabUmText.setCompoundDrawablesWithIntrinsicBounds(tabIcons[0], 0, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabUmText);
+        tabUmIcon.setImageResource(tabIcons[0]);
+        tabLayout.getTabAt(0).setCustomView(tabUm);
 
         LinearLayout tabDois = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
-        TextView tabDoisText = (TextView) tabDois.findViewById(R.id.tab);
+        TextView tabDoisText = (TextView) tabDois.findViewById(R.id.tabText);
+        ImageView tabDoisIcon = (ImageView) tabDois.findViewById(R.id.tabIcon);
         tabDoisText.setText("Eventos");
-        tabDoisText.setCompoundDrawablesWithIntrinsicBounds(tabIcons[1], 0, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabDoisText);
-
-        /*
+        tabDoisIcon.setImageResource(tabIcons[1]);
+        tabLayout.getTabAt(1).setCustomView(tabDois);
+/*
         tabUm.setText("Informações");
         tabUm.setTextColor(Color.WHITE);
         tabUm.setCompoundDrawablesWithIntrinsicBounds(tabIcons[0], 0, 0, 0);
@@ -108,6 +109,7 @@ public class BaladaDetalhesActivity extends StartNightActivity {
         tabDois.setTextColor(Color.WHITE);
         tabDois.setCompoundDrawablesWithIntrinsicBounds(tabIcons[1], 0, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabDois);*/
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

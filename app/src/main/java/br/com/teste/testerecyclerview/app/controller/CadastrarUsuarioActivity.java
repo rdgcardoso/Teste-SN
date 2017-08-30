@@ -297,7 +297,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
                 R.layout.spinner_list_style,
                 Genero.values());
 
-        adapterGenero.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterGenero.setDropDownViewResource(R.layout.spinner_dropdown_item);
         generoView.setAdapter(adapterGenero);
 
         /*ArrayAdapter<Genero> adapterGenero = new ArrayAdapter<>(this,
