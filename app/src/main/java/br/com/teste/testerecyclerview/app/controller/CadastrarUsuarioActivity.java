@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -45,6 +47,9 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_usuario);
+
+        ActionBar toolbar = getSupportActionBar();
+        toolbar.setTitle("Cadastrar-se");
 
         Button bt_cadastrar = (Button) findViewById(R.id.bt_cadastrar);
 
@@ -289,10 +294,17 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
         super.onResume();
 
         ArrayAdapter<Genero> adapterGenero = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_list_style,
                 Genero.values());
 
         adapterGenero.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         generoView.setAdapter(adapterGenero);
+
+        /*ArrayAdapter<Genero> adapterGenero = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                Genero.values());
+
+        adapterGenero.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        generoView.setAdapter(adapterGenero);*/
     }
 }

@@ -97,8 +97,6 @@ public class BaladaDetalhesActivity extends StartNightActivity {
         tabDoisText.setCompoundDrawablesWithIntrinsicBounds(tabIcons[1], 0, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabDoisText);
 
-
-
         /*
         tabUm.setText("Informações");
         tabUm.setTextColor(Color.WHITE);

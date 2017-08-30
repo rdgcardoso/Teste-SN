@@ -2,6 +2,7 @@ package br.com.teste.testerecyclerview.app.task;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -125,9 +126,14 @@ public class LoginTask extends AsyncTask<Void, Void, LoginDTO> {
             activity.finish();
         } else {
             if (loginDTO.getNon_field_errors() != null) {
-                usernameLayout.setError(" ");
-                senhaLayout.setError(" ");
-                Snackbar.make(coordinatorLayout, loginDTO.getNon_field_errors()[0], Snackbar.LENGTH_LONG).show();
+                usernameLayout.setError(null);
+                senhaLayout.setError(null);
+
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, loginDTO.getNon_field_errors()[0], Snackbar.LENGTH_LONG);
+                View sbView = snackbar.getView();
+                TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.RED);
+                snackbar.show();
                 Log.d("LRDG", "Erro no formulário: " + loginDTO.getNon_field_errors()[0]);
             }
             progressBar.setVisibility(View.GONE);

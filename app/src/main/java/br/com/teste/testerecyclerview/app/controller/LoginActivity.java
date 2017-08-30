@@ -123,7 +123,7 @@ public class LoginActivity extends StartNightActivity {
 
         try {
             usuario.validarUsername();
-            usernameLayout.setError("");
+            usernameLayout.setError(null);
 
         } catch (Exception cause) {
             usernameLayout.setError(cause.getMessage());
@@ -132,7 +132,7 @@ public class LoginActivity extends StartNightActivity {
 
         try {
             usuario.validarSenha();
-            senhaLayout.setError("");
+            senhaLayout.setError(null);
 
         } catch (Exception cause) {
             senhaLayout.setError(cause.getMessage());

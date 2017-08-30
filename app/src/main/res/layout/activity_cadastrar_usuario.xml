@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="20dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,9 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp">
+            android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/usernameLayout"
@@ -88,25 +87,19 @@
                     android:inputType="date" />
             </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/genero"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp">
-
-
-                <fr.ganfra.materialspinner.MaterialSpinner
-                    android:padding="0dp"
-                    android:id="@+id/genero"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Gênero"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    app:ms_alignLabels="true"
-                    app:ms_floatingLabelText="Gênero"
-                    app:ms_hint="Selecione um Gênero" />
-            </LinearLayout>
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:hint="Gênero"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                app:ms_alignLabels="false"
+                app:ms_floatingLabelText="Gênero"
+                app:ms_hint="Selecione um Gênero" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/senhaLayout"
