@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -84,17 +85,31 @@ public class BaladaDetalhesActivity extends StartNightActivity {
 
     private void setupTabIcons() {
 
-        TextView tabUm = (TextView) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
+        LinearLayout tabUm = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
+        TextView tabUmText = (TextView) tabUm.findViewById(R.id.tab);
+        tabUmText.setText("Informações");
+        tabUmText.setCompoundDrawablesWithIntrinsicBounds(tabIcons[0], 0, 0, 0);
+        tabLayout.getTabAt(0).setCustomView(tabUmText);
+
+        LinearLayout tabDois = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
+        TextView tabDoisText = (TextView) tabDois.findViewById(R.id.tab);
+        tabDoisText.setText("Eventos");
+        tabDoisText.setCompoundDrawablesWithIntrinsicBounds(tabIcons[1], 0, 0, 0);
+        tabLayout.getTabAt(1).setCustomView(tabDoisText);
+
+
+
+        /*
         tabUm.setText("Informações");
         tabUm.setTextColor(Color.WHITE);
-        tabUm.setCompoundDrawablesWithIntrinsicBounds(0, tabIcons[0], 0, 0);
+        tabUm.setCompoundDrawablesWithIntrinsicBounds(tabIcons[0], 0, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabUm);
 
         TextView tabDois = (TextView) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
         tabDois.setText("Eventos");
         tabDois.setTextColor(Color.WHITE);
-        tabDois.setCompoundDrawablesWithIntrinsicBounds(0, tabIcons[1], 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabDois);
+        tabDois.setCompoundDrawablesWithIntrinsicBounds(tabIcons[1], 0, 0, 0);
+        tabLayout.getTabAt(1).setCustomView(tabDois);*/
     }
 
     private void setupViewPager(ViewPager viewPager) {
