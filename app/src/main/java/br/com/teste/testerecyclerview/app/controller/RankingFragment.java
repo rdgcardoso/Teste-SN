@@ -26,7 +26,7 @@ public class RankingFragment extends Fragment {
         final View view = inflater.inflate(R.layout.ranking_fragment, container, false);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Top Baladas");
+        toolbar.setTitle("StartNight");
 
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         sharedPreferencesHelper = new SharedPreferencesHelper(getContext());
