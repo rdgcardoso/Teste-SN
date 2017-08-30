@@ -1,6 +1,7 @@
 package br.com.teste.testerecyclerview.app.controller;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -31,8 +33,8 @@ public class BaladaDetalhesActivity extends StartNightActivity {
     private BaladaDetalhesFragment detalhesBaladaFragment;
 
     private int[] tabIcons = {
-            android.R.drawable.ic_menu_info_details,
-            android.R.drawable.ic_menu_agenda,
+            R.drawable.ic_info_outline_white_18dp,
+            R.drawable.ic_event_white_18dp
     };
 
 
@@ -81,19 +83,21 @@ public class BaladaDetalhesActivity extends StartNightActivity {
     }
 
     private void setupTabIcons() {
-        TextView tabUm = (TextView) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, null);
+
+        TextView tabUm = (TextView) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
         tabUm.setText("Informações");
+        tabUm.setTextColor(Color.WHITE);
         tabUm.setCompoundDrawablesWithIntrinsicBounds(0, tabIcons[0], 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabUm);
 
-        TextView tabDois = (TextView) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, null);
+        TextView tabDois = (TextView) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
         tabDois.setText("Eventos");
+        tabDois.setTextColor(Color.WHITE);
         tabDois.setCompoundDrawablesWithIntrinsicBounds(0, tabIcons[1], 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabDois);
     }
 
     private void setupViewPager(ViewPager viewPager) {
-
         detalhesBaladaFragment = new BaladaDetalhesFragment();
         BaladaEventosFragment eventosBaladaFragment = new BaladaEventosFragment();
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -128,8 +132,8 @@ public class BaladaDetalhesActivity extends StartNightActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return null;
-            //return mFragmentTitleList.get(position);
+            //return null;
+            return mFragmentTitleList.get(position);
         }
     }
 

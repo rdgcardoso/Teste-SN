@@ -10,13 +10,16 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.task.ConsultarBaladaTask;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 
 public class BaladaDetalhesFragment extends Fragment {
 
-    private LinearLayout detalhesBaladaContainer;
+    private View progressBar;
+    private View detalhesBaladaContainer;
 
     @Nullable
     @Override
@@ -24,11 +27,14 @@ public class BaladaDetalhesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.detalhes_balada_fragment, container, false);
 
-        detalhesBaladaContainer = view.findViewById(R.id.detalhesBaladaContainer);
-        detalhesBaladaContainer.setVisibility(View.GONE);
-
         long id = getArguments().getLong("id");
         SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(this.getContext());
+
+        progressBar = view.findViewById(R.id.progressIndeterminateBar);
+        detalhesBaladaContainer = view.findViewById(R.id.detalhesBaladaContainer);
+        progressBar.setVisibility(View.VISIBLE);
+        detalhesBaladaContainer.setVisibility(View.GONE);
+
         new ConsultarBaladaTask(getContext(), id, sharedPreferencesHelper.recuperarToken()).execute();
 
         return view;

@@ -38,7 +38,7 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
     private View view;
     private String token;
     private int responseCode;
-    private ProgressBar progressBar;
+    private View progressBar;
     private TextView msgProgressBar;
 
     public ConsultarRankingBaladasTask(Context context, View view, String token) {
@@ -151,10 +151,8 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
             swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(context, "Ranking atualizado...", Toast.LENGTH_SHORT).show();
         } else {
-            progressBar = (ProgressBar) activity.findViewById(R.id.progressIndeterminateBar);
-            msgProgressBar = (TextView) activity.findViewById(R.id.msgProgressBar);
+            progressBar = activity.findViewById(R.id.progressIndeterminateBar);
             progressBar.setVisibility(View.GONE);
-            msgProgressBar.setVisibility(View.GONE);
         }
     }
 }

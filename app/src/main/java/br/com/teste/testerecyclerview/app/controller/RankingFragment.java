@@ -1,5 +1,6 @@
 package br.com.teste.testerecyclerview.app.controller;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 public class RankingFragment extends Fragment {
 
     private SharedPreferencesHelper sharedPreferencesHelper;
+    private View progressBar;
 
     @Nullable
     @Override
@@ -35,6 +37,9 @@ public class RankingFragment extends Fragment {
                 new ConsultarRankingBaladasTask(getContext(), view, sharedPreferencesHelper.recuperarToken()).execute();
             }
         });
+
+        progressBar = view.findViewById(R.id.progressIndeterminateBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         new ConsultarRankingBaladasTask(getContext(), sharedPreferencesHelper.recuperarToken()).execute();
         return view;

@@ -1,5 +1,6 @@
 package br.com.teste.testerecyclerview.app.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import java.io.IOException;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.LoginDTO;
+import br.com.teste.testerecyclerview.app.task.LoginTask;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 import br.com.teste.testerecyclerview.app.ws.LoginEndpoint;
@@ -36,11 +38,13 @@ public class LoginActivity extends StartNightActivity {
     private TextInputEditText usernameView, senhaView;
     private TextInputLayout usernameLayout, senhaLayout;
     private CoordinatorLayout coordinatorLayout;
+    Context context;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.login_activity);
+        context = this;
 
         usernameView = (TextInputEditText) findViewById(R.id.username);
         senhaView = (TextInputEditText) findViewById(R.id.senha);
@@ -79,60 +83,8 @@ public class LoginActivity extends StartNightActivity {
                 }
 
                 Log.d("LRDG", "usuario: " + usuario.toString());
+                new LoginTask(usuario, context).execute();
 
-                LoginEndpoint endpoint = RetrofitHelper.with(getApplicationContext()).createLoginEndpoint();
-                Call<LoginDTO> call = endpoint.logarUsuario(
-                        usuario.getUsername(),
-                        usuario.getSenha()
-                );
-
-                call.enqueue(new Callback<LoginDTO>() {
-                    @Override
-                    public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {
-
-                        loginDTO = response.body();
-                        Log.d("LRDG", "response: " + response.body());
-                        Log.d("LRDG", " loginDTO response: " + loginDTO);
-
-                        if (response.isSuccessful()) {
-                            if (loginDTO != null) {
-                                sharedPreferences = new SharedPreferencesHelper(getApplicationContext());
-                                sharedPreferences.setToken(loginDTO.getKey());
-                                Log.d("LRDG", "Autenticado! Token =" + loginDTO.getKey());
-
-                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(i);
-                                finish();
-                            }
-                        } else {
-                            try {
-                                Gson gson = new Gson();
-                                loginDTO = gson.fromJson(response.errorBody().string(), LoginDTO.class);
-
-                                Log.d("LRDG", "loginDTO=" + loginDTO.toString());
-
-                                if (loginDTO.getNon_field_errors() != null) {
-                                    usernameLayout.setError(" ");
-                                    senhaLayout.setError(" ");
-                                    msgErroSnackBar(coordinatorLayout, loginDTO.getNon_field_errors()[0]);
-                                    Log.d("LRDG", "Erro no formulário: " + loginDTO.getNon_field_errors()[0]);
-                                }
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            Log.d("LRDG", "Erro! Sem sucesso no login! Erro: " + response.code());
-                            Log.d("LRDG", "loginDTO response: " + loginDTO);
-                            Log.d("LRDG", "response toString: " + response.toString());
-                            Log.d("LRDG", "response message: " + response.message());
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<LoginDTO> call, @NonNull Throwable t) {
-                        Log.d("LRDG", "Falha ao logar!");
-                    }
-                });
             }
         });
     }

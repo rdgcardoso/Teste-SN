@@ -31,6 +31,9 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada>  {
     private AppCompatActivity activity;
     private String token;
     private int responseCode;
+    private View progressBar;
+    private View detalhesBaladaContainer;
+
 
     public ConsultarBaladaTask(Context context, long id, String token) {
         this.context = context;
@@ -40,7 +43,10 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada>  {
 
     @Override //Pré execucao
     protected void onPreExecute() {
+
         Log.i("LRDG", "Pré execução ConsultarBaladaTask");
+        activity = (AppCompatActivity) context;
+
     }
 
     @Override //Execução
@@ -102,7 +108,6 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada>  {
             return;
         }
 
-        activity = (AppCompatActivity) context;
         ImageView fotoView = (ImageView) activity.findViewById(R.id.foto);
         TextView endereco1View = (TextView) activity.findViewById(R.id.endereco1);
         TextView endereco2View = (TextView) activity.findViewById(R.id.endereco2);
