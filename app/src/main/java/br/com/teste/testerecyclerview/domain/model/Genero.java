@@ -4,23 +4,18 @@ import android.util.Log;
 
 public enum Genero {
 
-    MASCULINO("Masculino", 0),
-    FEMININO("Feminino", 1);
+    MASCULINO("Masculino"),
+    FEMININO("Feminino");
 
     private String descricao;
     private int id;
 
-    Genero(String descricao, int id) {
+    Genero(String descricao) {
         this.descricao = descricao;
-        this.id = id;
     }
 
     @Override
     public String toString() {
         return descricao;
-    }
-
-    public int getIdSelecionado() {
-        return id;
     }
 }

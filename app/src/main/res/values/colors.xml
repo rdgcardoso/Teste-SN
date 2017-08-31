@@ -17,6 +17,8 @@
     <color name="textColorHint">#fff</color>
     <color name="textColor">#fff</color>
 
+    <color name="designTextInputErrorColor">#d32f2f</color>
+
     <color name="tabBackground">#424242</color>
     <color name="topoBaladaBackground">#ffffff</color>
     <color name="topoBaladaTextColor">#616161</color>

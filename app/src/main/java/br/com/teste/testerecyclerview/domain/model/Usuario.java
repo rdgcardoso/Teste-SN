@@ -139,6 +139,8 @@ public class Usuario implements Serializable {
                 ", dataNascimento='" + dataNascimento + '\'' +
                 ", genero='" + genero + '\'' +
                 ", foto='" + foto + '\'' +
+                ", senha='" + senha + '\'' +
+                ", senhaConfirmacao='" + senhaConfirmacao + '\'' +
                 '}';
     }
 
@@ -187,7 +189,7 @@ public class Usuario implements Serializable {
     public void validarGenero() throws Exception {
         if (genero == null) {
             throw new Exception("Gênero não pode ser nulo!");
-        } else if (Integer.parseInt(genero) < 0) {
+        } else if (Integer.parseInt(genero) == 0) {
             throw new Exception("Campo obrigatório");
         }
     }

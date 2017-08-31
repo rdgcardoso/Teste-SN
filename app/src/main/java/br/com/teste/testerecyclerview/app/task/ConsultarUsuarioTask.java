@@ -2,6 +2,8 @@ package br.com.teste.testerecyclerview.app.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -91,12 +93,17 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
         TextView nomeCompletoView = (TextView) activity.findViewById(R.id.nomeCompleto);
         TextView emailView = (TextView) activity.findViewById(R.id.email);
         ImageView imageView = (ImageView) activity.findViewById(R.id.profile_image);
+        ImageView imageBlurView = (ImageView) activity.findViewById(R.id.profile_imageBlur);
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) activity.findViewById(R.id.coordinatorLayout);
 
         nomeCompletoView.setText(usuario.getNomeCompleto());
         emailView.setText(usuario.getEmail());
 
         if (usuario.getFoto() != null) {
             Picasso.with(context).load(usuario.getFoto()).into(imageView);
+            Picasso.with(context).load(usuario.getFoto()).into(imageBlurView);
         }
+
+        Snackbar.make(coordinatorLayout, "Bem-vindo, " + usuario.getNome() + "!", Snackbar.LENGTH_LONG).show();
     }
 }

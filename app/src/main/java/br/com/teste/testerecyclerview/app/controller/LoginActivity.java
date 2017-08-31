@@ -134,7 +134,6 @@ public class LoginActivity extends StartNightActivity {
         try {
             usuario.validarSenha();
             senhaLayout.setError(null);
-
         } catch (Exception cause) {
             senhaLayout.setError(cause.getMessage());
             isOk = true;

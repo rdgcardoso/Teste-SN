@@ -5,15 +5,16 @@
         <item
             android:id="@+id/ranking"
             android:checked="false"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_home_white_18dp"
             android:title="Ranking" />
 
         <item
             android:id="@+id/perfil"
             android:checked="false"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_account_box_white_18dp"
             android:title="Perfil" />
 
+        <!--
         <item
             android:id="@+id/baladas"
             android:checked="false"
@@ -25,11 +26,12 @@
             android:checked="false"
             android:icon="@mipmap/ic_launcher"
             android:title="Eventos" />
+        -->
 
         <item
             android:id="@+id/logout"
             android:checked="false"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_exit_to_app_white_18dp"
             android:title="Sair" />
     </group>
 </menu>

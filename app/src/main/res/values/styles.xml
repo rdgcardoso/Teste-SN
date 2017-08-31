@@ -16,11 +16,10 @@
         <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:textColorHint">@color/textColorHint</item>
         <item name="android:textColor">@color/textColor</item>
-    </style>
 
-    <style name="AppTheme.Button" parent="Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:background">@color/buttonBackground</item>
-        <item name="android:layout_marginTop">15dp</item>
+        <item name="textColorError">@color/designTextInputErrorColor</item>
+        <item name="android:colorButtonNormal">@color/buttonBackground</item>
+
     </style>
 
     <style name="Divider">

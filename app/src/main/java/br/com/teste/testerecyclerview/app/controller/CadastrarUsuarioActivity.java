@@ -39,7 +39,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
 
     private TextInputEditText usernameView, nomeView, sobrenomeView, emailView, dataNascimentoView, senhaView, senhaConfirmacaoView;
     private MaterialSpinner generoView;
-    private TextInputLayout usernameLayout, nomeLayout, sobrenomeLayout, emailLayout, dataNascimentoLayout, generoLayout, senhaLayout, senhaConfirmacaoLayout;
+    private TextInputLayout usernameLayout, nomeLayout, sobrenomeLayout, emailLayout, dataNascimentoLayout, senhaLayout, senhaConfirmacaoLayout;
     private CoordinatorLayout coordinatorLayout;
     private CadastroUsuarioDTO cadastroUsuarioDTO;
 
@@ -88,7 +88,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
                         sobrenomeView.getText().toString(),
                         emailView.getText().toString(),
                         dataNascimentoView.getText().toString(),
-                        String.valueOf(generoView.getSelectedItemId()-1),
+                        String.valueOf(generoView.getSelectedItemId()),
                         senhaView.getText().toString(),
                         senhaConfirmacaoView.getText().toString()
                 );
@@ -163,7 +163,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
                                     dataNascimentoLayout.setError(cadastroUsuarioDTO.getData_nascimento()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getSexo() != null) {
-                                    generoLayout.setError(cadastroUsuarioDTO.getSexo()[0]);
+                                    generoView.setError(cadastroUsuarioDTO.getSexo()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getPassword1() != null) {
                                     senhaLayout.setError(cadastroUsuarioDTO.getPassword1()[0]);
@@ -209,7 +209,7 @@ public class CadastrarUsuarioActivity extends StartNightActivity {
             usuario.setSobrenome(sobrenomeView.getText().toString());
             usuario.setEmail(emailView.getText().toString());
             usuario.setDataNascimento(dataNascimentoView.getText().toString());
-            usuario.setGenero(String.valueOf(((Genero)generoView.getSelectedItem()).getIdSelecionado()));
+            usuario.setGenero(String.valueOf(generoView.getSelectedItemId()));
             usuario.setSenha(senhaView.getText().toString());
             usuario.setSenhaConfirmacao(senhaConfirmacaoView.getText().toString());
 

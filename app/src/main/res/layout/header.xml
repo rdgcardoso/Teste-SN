@@ -3,8 +3,21 @@
     android:id="@+id/header"
     android:layout_width="match_parent"
     android:layout_height="190dp"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
+
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/profile_imageBlur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/opacityFilter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:alpha="0.85">
+    </View>
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
