@@ -1,6 +1,12 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--Meu tema
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -19,8 +25,8 @@
 
         <item name="textColorError">@color/designTextInputErrorColor</item>
         <item name="android:colorButtonNormal">@color/buttonBackground</item>
-
     </style>
+    -->
 
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>

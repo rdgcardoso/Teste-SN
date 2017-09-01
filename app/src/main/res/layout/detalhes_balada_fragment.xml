@@ -30,7 +30,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_info_outline_white_18dp" />
+                    android:src="@drawable/ic_info_outline_black_18dp" />
 
                 <TextView
                     android:id="@+id/descricao"
@@ -51,7 +51,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_web_white_18dp" />
+                    android:src="@drawable/ic_web_black_18dp" />
 
                 <TextView
                     android:id="@+id/site"
@@ -74,7 +74,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_music_note_white_18dp" />
+                    android:src="@drawable/ic_music_note_black_18dp" />
 
                 <TextView
                     android:id="@+id/tipoMusica"
@@ -96,7 +96,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_attach_money_white_18dp" />
+                    android:src="@drawable/ic_attach_money_black_18dp" />
 
 
                 <TextView

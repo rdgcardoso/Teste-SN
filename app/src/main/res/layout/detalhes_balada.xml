@@ -33,14 +33,12 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/topoBaladaTextColor"
                     android:id="@+id/endereco1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Avenida Rudge, 315" />
 
                 <TextView
-                    android:textColor="@color/topoBaladaTextColor"
                     android:id="@+id/endereco2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -69,7 +67,6 @@
             android:layout_height="wrap_content">
 
             <android.support.design.widget.TabLayout
-                app:tabBackground="@color/tabBackground"
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

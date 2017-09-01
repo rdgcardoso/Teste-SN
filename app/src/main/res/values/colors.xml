@@ -2,6 +2,13 @@
 <resources>
     <color name="golden">#e2d877</color>
 
+    <color name="colorPrimary">#424242</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#8c8c8c</color>
+
+    <color name="topoBaladaBackground">#ffffff</color>
+
+    <!--Minhas cores
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#e70c00</color>
     <color name="colorAccent">#ffffff</color>
@@ -24,6 +31,7 @@
     <color name="topoBaladaTextColor">#616161</color>
     <color name="buttonBackground">#616161</color>
 
+    -->
     <!--
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
