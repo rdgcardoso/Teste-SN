@@ -13,14 +13,14 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".app.controller.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity android:name=".app.controller.CadastrarUsuarioActivity">
         </activity>
 
         <activity android:name=".app.controller.SplashScreenActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar"
             android:noHistory="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -30,6 +30,8 @@
         </activity>
 
         <activity android:name=".app.controller.LoginActivity"/>
-        <activity android:name=".app.controller.BaladaDetalhesActivity"/>
+        <activity android:name=".app.controller.BaladaDetalhesActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 </manifest>

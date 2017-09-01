@@ -149,6 +149,7 @@ public class MainActivity extends StartNightActivity {
                                 Log.d("LRDG", "Saindo! Mensagem: " + logoutDTO.getSuccess());
                                 sharedPreferencesHelper.setToken("");
                                 Intent i = new Intent(context, LoginActivity.class);
+                                i.putExtra("logout", true);
                                 startActivity(i);
                                 ((AppCompatActivity) context).finish();
                             }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
@@ -104,6 +105,10 @@ public class LoginActivity extends StartNightActivity {
         if (getIntent().getBooleanExtra("sessaoExpirou", false)) {
             msgErroSnackBar(coordinatorLayout, "Sua sessão expirou, realize o login novamente");
         }
+
+        if (getIntent().getBooleanExtra("logout", false)) {
+            Snackbar.make(coordinatorLayout,"Você saiu do StartNight... Até a próxima :)", Snackbar.LENGTH_LONG).show();
+        }
     }
 
     private EditText.OnEditorActionListener editorAction = new TextView.OnEditorActionListener() {
@@ -141,6 +146,5 @@ public class LoginActivity extends StartNightActivity {
 
         return isOk;
     }
-
 
 }

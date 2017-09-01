@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#8c8c8c</color>
 
+    <color name="titleToolbarTextColor">#fff</color>
     <color name="topoBaladaBackground">#ffffff</color>
 
     <!--Minhas cores
