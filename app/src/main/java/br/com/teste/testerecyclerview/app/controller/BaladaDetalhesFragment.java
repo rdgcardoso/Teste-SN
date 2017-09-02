@@ -6,11 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.task.ConsultarBaladaTask;
@@ -18,20 +13,16 @@ import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 
 public class BaladaDetalhesFragment extends Fragment {
 
-    private View progressBar;
-    private View detalhesBaladaContainer;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.detalhes_balada_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_balada_detalhes, container, false);
 
         long id = getArguments().getLong("id");
         SharedPreferencesHelper sharedPreferencesHelper = new SharedPreferencesHelper(this.getContext());
 
-        progressBar = view.findViewById(R.id.progressIndeterminateBar);
-        detalhesBaladaContainer = view.findViewById(R.id.detalhesBaladaContainer);
+        View progressBar = view.findViewById(R.id.progressIndeterminateBar);
+        View detalhesBaladaContainer = view.findViewById(R.id.detalhesBaladaContainer);
         progressBar.setVisibility(View.VISIBLE);
         detalhesBaladaContainer.setVisibility(View.GONE);
 
@@ -39,6 +30,4 @@ public class BaladaDetalhesFragment extends Fragment {
 
         return view;
     }
-
-
 }

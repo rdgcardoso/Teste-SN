@@ -1,7 +1,6 @@
 package br.com.teste.testerecyclerview.app.controller;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,14 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -45,7 +41,7 @@ public class BaladaDetalhesActivity extends StartNightActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detalhes_balada);
+        setContentView(R.layout.activity_balada_detalhes);
 
         Intent i = getIntent();
         balada = (Balada) i.getSerializableExtra("balada");
@@ -104,14 +100,14 @@ public class BaladaDetalhesActivity extends StartNightActivity {
 
     private void setupTabIcons() {
 
-        LinearLayout tabUm = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
+        LinearLayout tabUm = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.tab_balada_detalhes, (ViewGroup) null);
         TextView tabUmText = (TextView) tabUm.findViewById(R.id.tabText);
         ImageView tabUmIcon = (ImageView) tabUm.findViewById(R.id.tabIcon);
         tabUmText.setText("Informações");
         tabUmIcon.setImageResource(tabIcons[0]);
         tabLayout.getTabAt(0).setCustomView(tabUm);
 
-        LinearLayout tabDois = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
+        LinearLayout tabDois = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.tab_balada_detalhes, (ViewGroup) null);
         TextView tabDoisText = (TextView) tabDois.findViewById(R.id.tabText);
         ImageView tabDoisIcon = (ImageView) tabDois.findViewById(R.id.tabIcon);
         tabDoisText.setText("Eventos");

@@ -6,10 +6,8 @@ public class UsuarioDTO {
     private String email;
     private String first_name;
     private String last_name;
-    private String data_nascimento;
     private String password2;
     private String password1;
-    private String sexo;
     private UsuarioInformacoesDTO user_info;
 
     public long getId() {
@@ -64,20 +62,12 @@ public class UsuarioDTO {
         return user_info.getFoto();
     }
 
-    public String getData_nascimento() {
-        return data_nascimento;
-    }
-
-    public void setData_nascimento(String data_nascimento) {
-        this.data_nascimento = data_nascimento;
-    }
-
     public String getSexo() {
-        return sexo;
+        return user_info.getSexo();
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public String getDataNascimento() {
+        return user_info.getData_nascimento();
     }
 
     public UsuarioInformacoesDTO getUser_info() {
@@ -112,8 +102,8 @@ public class UsuarioDTO {
                 ", email='" + email + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", data_nascimento='" + data_nascimento + '\'' +
-                ", sexo='" + sexo + '\'' +
+                ", password2='" + password2 + '\'' +
+                ", password1='" + password1 + '\'' +
                 ", user_info=" + user_info +
                 '}';
     }

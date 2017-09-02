@@ -1,8 +1,15 @@
 package br.com.teste.testerecyclerview.domain.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.util.Calendar;
 
 public class Usuario implements Serializable {
+
+    private static final String GENERO_MASCULINO = "1";
+    private static final String GENERO_FEMININO = "2";
+
     private long id;
     private String username;
     private String email;
@@ -33,16 +40,35 @@ public class Usuario implements Serializable {
         this.senhaConfirmacao = senhaConfirmacao;
     }
 
-    public Usuario(long id, String username, String email, String nome, String sobrenome, String foto) {
+    public Usuario(long id, String username, String email, String nome, String sobrenome, String foto, String genero, String dataNascimento) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.foto = foto;
+        this.genero = genero;
+        this.dataNascimento = dataNascimento;
     }
 
+    public int getIdade() {
 
+        Calendar dataNasc = Calendar.getInstance();
+        Calendar hoje = Calendar.getInstance();
+        int ano, mes, dia;
+        ano = Integer.parseInt(dataNascimento.substring(0, 4));
+        mes = Integer.parseInt(dataNascimento.substring(5, 7));
+        dia = Integer.parseInt(dataNascimento.substring(8, 10));
+        dataNasc.set(ano, mes, dia);
+
+        int idade = hoje.get(Calendar.YEAR) - dataNasc.get(Calendar.YEAR);
+
+        if (hoje.get(Calendar.DAY_OF_YEAR) < dataNasc.get(Calendar.DAY_OF_YEAR)){
+            idade--;
+        }
+
+        return idade;
+    }
 
     public String getEmail() {
         return email;
@@ -124,6 +150,17 @@ public class Usuario implements Serializable {
         return genero;
     }
 
+    public String getGeneroString() {
+        if (genero != null) {
+            if (genero.equals(GENERO_MASCULINO)) {
+                return "Masculino";
+            } else if (genero.equals(GENERO_FEMININO)) {
+                return "Feminino";
+            }
+        }
+        return "";
+    }
+
     public void setGenero(String genero) {
         this.genero = genero;
     }
@@ -199,7 +236,7 @@ public class Usuario implements Serializable {
             throw new Exception("Senha não pode ser nula!");
         } else if (senha.isEmpty()) {
             throw new Exception("Campo obrigatório");
-        } else if (senha.length()<6) {
+        } else if (senha.length() < 6) {
             throw new Exception("Esta senha é muito curta. Ela deve ter pelo menos 6 caracteres");
         }
     }
@@ -211,7 +248,7 @@ public class Usuario implements Serializable {
             throw new Exception("Campo obrigatório");
         } else if (!senhaConfirmacao.equals(senha)) {
             throw new Exception("Os dois campos de senha não combinam");
-        } else if (senhaConfirmacao.length()<6) {
+        } else if (senhaConfirmacao.length() < 6) {
             throw new Exception("Esta senha é muito curta. Ela deve ter pelo menos 6 caracteres");
         }
     }

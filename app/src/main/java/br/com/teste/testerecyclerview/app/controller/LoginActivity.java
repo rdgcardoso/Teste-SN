@@ -3,7 +3,6 @@ package br.com.teste.testerecyclerview.app.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -15,22 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-
-import java.io.IOException;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.LoginDTO;
 import br.com.teste.testerecyclerview.app.task.LoginTask;
-import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
-import br.com.teste.testerecyclerview.app.ws.LoginEndpoint;
 import br.com.teste.testerecyclerview.domain.model.Usuario;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class LoginActivity extends StartNightActivity {
@@ -45,7 +34,7 @@ public class LoginActivity extends StartNightActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.activity_login);
         context = this;
 
         usernameView = (TextInputEditText) findViewById(R.id.username);
@@ -62,7 +51,7 @@ public class LoginActivity extends StartNightActivity {
         bt_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), CadastrarUsuarioActivity.class);
+                Intent i = new Intent(getApplicationContext(), UsuarioCadastrarActivity.class);
                 startActivityForResult(i, USUARIO_CADASTROU_REQUEST);
             }
         });

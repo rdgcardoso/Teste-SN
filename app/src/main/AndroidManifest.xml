@@ -16,7 +16,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".app.controller.CadastrarUsuarioActivity">
+        <activity android:name=".app.controller.UsuarioCadastrarActivity">
         </activity>
 
         <activity android:name=".app.controller.SplashScreenActivity"

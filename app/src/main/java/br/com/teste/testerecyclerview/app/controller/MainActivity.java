@@ -1,6 +1,6 @@
 package br.com.teste.testerecyclerview.app.controller;
 
-import android.app.ProgressDialog;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,20 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.LogoutDTO;
-import br.com.teste.testerecyclerview.app.task.ConsultarUsuarioTask;
+import br.com.teste.testerecyclerview.app.task.PreencheMenuUsuarioTask;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 import br.com.teste.testerecyclerview.app.ws.LogoutEndpoint;
-import br.com.teste.testerecyclerview.domain.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,7 +49,7 @@ public class MainActivity extends StartNightActivity {
 
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
 
-        new ConsultarUsuarioTask(this, sharedPreferencesHelper.recuperarToken()).execute();
+        new PreencheMenuUsuarioTask(this, sharedPreferencesHelper.recuperarToken()).execute();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
 
@@ -110,6 +104,7 @@ public class MainActivity extends StartNightActivity {
 
     private void selecionarOpcaoMenu(MenuItem item) {
 
+
         if (item.isChecked()) {
             item.setChecked(false);
         } else {
@@ -124,9 +119,17 @@ public class MainActivity extends StartNightActivity {
         switch (item.getItemId()) {
 
             case R.id.ranking:
-                fragment = new RankingFragment();
+                fragment = new BaladaRankingFragment();
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.frame, fragment);
+                fragmentTransaction.commit();
+                break;
+
+            case R.id.perfil:
+                fragment = new UsuarioDetalhesFragment();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame, fragment);
+                fragmentTransaction.addToBackStack("meu_fragment");
                 fragmentTransaction.commit();
                 break;
 
@@ -169,6 +172,16 @@ public class MainActivity extends StartNightActivity {
             default:
                 Toast.makeText(getApplicationContext(),"Opsss... Erro!",Toast.LENGTH_SHORT).show();
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            navigationView.getMenu().findItem(R.id.ranking).setChecked(true);
+            super.onBackPressed();
         }
     }
 }

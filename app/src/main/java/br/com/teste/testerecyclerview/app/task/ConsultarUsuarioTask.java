@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -16,9 +17,9 @@ import java.io.IOException;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.UsuarioDTO;
+import br.com.teste.testerecyclerview.app.resources.CodigoRetornoHTTP;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.ws.UsuarioEndpoint;
-import br.com.teste.testerecyclerview.app.resources.CodigoRetornoHTTP;
 import br.com.teste.testerecyclerview.domain.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -64,7 +65,9 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
                             dto.getEmail(),
                             dto.getFirst_name(),
                             dto.getLast_name(),
-                            dto.getFoto()
+                            dto.getFoto(),
+                            dto.getSexo(),
+                            dto.getDataNascimento()
                     );
                 }
             } else {
@@ -91,19 +94,29 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
         AppCompatActivity activity = (AppCompatActivity) context;
 
         TextView nomeCompletoView = (TextView) activity.findViewById(R.id.nomeCompleto);
+        TextView idadeView = (TextView) activity.findViewById(R.id.idade);
+        TextView usernameView = (TextView) activity.findViewById(R.id.username);
         TextView emailView = (TextView) activity.findViewById(R.id.email);
+        TextView generoView = (TextView) activity.findViewById(R.id.genero);
+        ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.progressIndeterminateBar);
+        View detalhesUsuarioContainer = activity.findViewById(R.id.detalhesUsuarioContainer);
+
+
         ImageView imageView = (ImageView) activity.findViewById(R.id.profile_image);
         ImageView imageBlurView = (ImageView) activity.findViewById(R.id.profile_imageBlur);
-        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) activity.findViewById(R.id.coordinatorLayout);
 
-        nomeCompletoView.setText(usuario.getNomeCompleto());
+        nomeCompletoView.setText(usuario.getNomeCompleto() + ",");
+        idadeView.setText(usuario.getIdade() + " anos");
+        usernameView.setText(usuario.getUsername());
         emailView.setText(usuario.getEmail());
+        generoView.setText(usuario.getGeneroString());
 
         if (usuario.getFoto() != null) {
             Picasso.with(context).load(usuario.getFoto()).into(imageView);
             Picasso.with(context).load(usuario.getFoto()).into(imageBlurView);
         }
 
-        Snackbar.make(coordinatorLayout, "Bem-vindo, " + usuario.getNome() + "!", Snackbar.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+        detalhesUsuarioContainer.setVisibility(View.VISIBLE);
     }
 }

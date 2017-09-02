@@ -31,9 +31,6 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada>  {
     private AppCompatActivity activity;
     private String token;
     private int responseCode;
-    private View progressBar;
-    private View detalhesBaladaContainer;
-
 
     public ConsultarBaladaTask(Context context, long id, String token) {
         this.context = context;
