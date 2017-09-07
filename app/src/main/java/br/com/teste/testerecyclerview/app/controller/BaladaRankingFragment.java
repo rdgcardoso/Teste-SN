@@ -43,6 +43,7 @@ public class BaladaRankingFragment extends Fragment {
     private List<Balada> baladaList;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Call<List<BaladaDTO>> call;
 
     @Nullable
     @Override
@@ -77,13 +78,20 @@ public class BaladaRankingFragment extends Fragment {
         carregarBaladaRanking();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("LRDG", "BaladaRankingFragment onPause");
+        call.cancel();
+    }
+
     private void carregarBaladaRanking() {
 
         RankingBaladasEndpoint endpoint = RetrofitHelper.with(getContext()).createRankingBaladasEndpoint();
 
         baladaList = new ArrayList<>();
 
-        Call<List<BaladaDTO>> call = endpoint.consultarRankingBaladas(sharedPreferencesHelper.recuperarToken());
+        call = endpoint.consultarRankingBaladas(sharedPreferencesHelper.recuperarToken());
 
         call.enqueue(new Callback<List<BaladaDTO>>() {
             @Override
@@ -123,12 +131,16 @@ public class BaladaRankingFragment extends Fragment {
                             public void onItemClick(View v, int position) {
                                 Log.d("LRDG", "Clicado position: " + position);
 
-                                Balada balada;
-                                balada = baladaList.get(position);
+                                try {
+                                    Balada balada;
+                                    balada = baladaList.get(position);
 
-                                Intent i = new Intent(getContext(), BaladaDetalhesActivity.class);
-                                i.putExtra("balada", balada);
-                                startActivity(i);
+                                    Intent i = new Intent(getContext(), BaladaDetalhesActivity.class);
+                                    i.putExtra("balada", balada);
+                                    startActivity(i);
+                                } catch (IndexOutOfBoundsException cause) {
+                                    Log.d("LRDG", "Erro ao selecionar balada... Ranking em atualização");
+                                }
                             }
                         });
                         recyclerView.setAdapter(baladaAdapter);
@@ -140,7 +152,7 @@ public class BaladaRankingFragment extends Fragment {
 
                     }
                 } else {
-                    Log.d("LRDG", "Erro!");
+                    Log.d("LRDG", "Erro em BaladaRankingFragment");
                     CodigoRetornoHTTP codigo = new CodigoRetornoHTTP(response.code());
                     codigo.notAuthorized(getContext());
                 }
@@ -148,7 +160,7 @@ public class BaladaRankingFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<List<BaladaDTO>> call, @NonNull Throwable t) {
-                Log.d("LRDG", "Falha!");
+                Log.d("LRDG", "Falha em BaladaRankingFragment");
             }
 
         });
