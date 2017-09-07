@@ -8,10 +8,6 @@ public class LogoutDTO {
         return success;
     }
 
-    public void setSuccess(String success) {
-        this.success = success;
-    }
-
     @Override
     public String toString() {
         return "LogoutDTO{" +

@@ -294,9 +294,11 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
     protected void onResume() {
         super.onResume();
 
-        ArrayAdapter<Genero> adapterGenero = new ArrayAdapter<>(this,
+        ArrayAdapter<Genero> adapterGenero = new ArrayAdapter<>(
+                this,
                 R.layout.spinner_list_style,
-                Genero.values());
+                Genero.values()
+        );
 
         adapterGenero.setDropDownViewResource(R.layout.spinner_dropdown_item);
         generoView.setAdapter(adapterGenero);

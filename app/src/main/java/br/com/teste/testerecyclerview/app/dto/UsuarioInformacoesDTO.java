@@ -4,6 +4,7 @@ public class UsuarioInformacoesDTO {
     private String foto;
     private String sexo;
     private String data_nascimento;
+    private String data_nascimento_formatada;
 
 
     public String getSexo() {
@@ -14,7 +15,12 @@ public class UsuarioInformacoesDTO {
         return foto;
     }
 
-    public String getData_nascimento() {
+    public String getDataNascimento() {
         return data_nascimento;
     }
+
+    public String getDataNascimentoFormatada() {
+        return data_nascimento_formatada;
+    }
+
 }

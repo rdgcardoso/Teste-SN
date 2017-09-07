@@ -1,5 +1,6 @@
 package br.com.teste.testerecyclerview.app.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -27,12 +28,12 @@ public class UsuarioDetalhesFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "FAB clicado!", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getContext(), UsuarioEditarActivity.class);
+                startActivity(i);
             }
         });
 
         sharedPreferencesHelper = new SharedPreferencesHelper(getContext());
-
         new ConsultarUsuarioTask(getContext(), sharedPreferencesHelper.recuperarToken()).execute();
 
         return view;

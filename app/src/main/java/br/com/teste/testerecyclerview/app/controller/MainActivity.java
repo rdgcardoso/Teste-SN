@@ -27,14 +27,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class MainActivity extends StartNightActivity {
 
     private DrawerLayout drawerLayout;
     private SharedPreferencesHelper sharedPreferencesHelper;
-    private LogoutDTO logoutDTO;
-    private Context context;
     private NavigationView navigationView;
+    private LogoutDTO logoutDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,6 @@ public class MainActivity extends StartNightActivity {
         setContentView(R.layout.activity_main);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
-        context = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("@string/app_name");
         setSupportActionBar(toolbar);
@@ -104,7 +101,6 @@ public class MainActivity extends StartNightActivity {
 
     private void selecionarOpcaoMenu(MenuItem item) {
 
-
         if (item.isChecked()) {
             item.setChecked(false);
         } else {
@@ -134,45 +130,45 @@ public class MainActivity extends StartNightActivity {
                 break;
 
             case R.id.logout:
-
-                sharedPreferencesHelper = new SharedPreferencesHelper(this);
-                LogoutEndpoint endpoint = RetrofitHelper.with(this).createLogoutEndpoint();
-
-                Log.d("LRDG", "token agora: " + sharedPreferencesHelper.recuperarToken());
-                Call<LogoutDTO> call = endpoint.logoutUsuario(sharedPreferencesHelper.recuperarToken());
-
-                call.enqueue(new Callback<LogoutDTO>() {
-                    @Override
-                    public void onResponse(@NonNull Call<LogoutDTO> call, @NonNull Response<LogoutDTO> response) {
-
-                        logoutDTO = response.body();
-                        if (response.isSuccessful()) {
-                            Toast.makeText(context, "Saindo...", Toast.LENGTH_SHORT).show();
-                            if (logoutDTO != null) {
-                                Log.d("LRDG", "Saindo! Mensagem: " + logoutDTO.getSuccess());
-                                sharedPreferencesHelper.setToken("");
-                                Intent i = new Intent(context, LoginActivity.class);
-                                i.putExtra("logout", true);
-                                startActivity(i);
-                                ((AppCompatActivity) context).finish();
-                            }
-                        }
-                        if (!response.isSuccessful()) {
-                            Log.d("LRDG", "Erro! Sem sucesso!");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<LogoutDTO> call, @NonNull Throwable t) {
-                        Log.d("LRDG", "Falha!");
-                    }
-                });
+                logout();
                 break;
 
             default:
                 Toast.makeText(getApplicationContext(),"Opsss... Erro!",Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    private void logout() {
+        LogoutEndpoint endpoint = RetrofitHelper.with(this).createLogoutEndpoint();
+
+        Log.d("LRDG", "token agora: " + sharedPreferencesHelper.recuperarToken());
+        Call<LogoutDTO> call = endpoint.logoutUsuario(sharedPreferencesHelper.recuperarToken());
+
+        call.enqueue(new Callback<LogoutDTO>() {
+            @Override
+            public void onResponse(@NonNull Call<LogoutDTO> call, @NonNull Response<LogoutDTO> response) {
+
+                logoutDTO = response.body();
+                if (response.isSuccessful()) {
+                    if (logoutDTO != null) {
+                        Log.d("LRDG", "Saindo! Mensagem: " + logoutDTO.getSuccess());
+                        sharedPreferencesHelper.setToken("");
+                        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                        i.putExtra("logout", true);
+                        startActivity(i);
+                        finish();
+                    }
+                } else {
+                    Log.d("LRDG", "Erro! Sem sucesso no logout!");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<LogoutDTO> call, @NonNull Throwable t) {
+                Log.d("LRDG", "Falha no logout!");
+            }
+        });
     }
 
     @Override

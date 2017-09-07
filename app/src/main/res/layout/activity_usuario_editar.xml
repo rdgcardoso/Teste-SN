@@ -104,41 +104,16 @@
                 app:ms_floatingLabelText="Gênero"
                 app:ms_hint="Selecione um Gênero" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/senhaLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/senha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Senha"
-                    android:imeOptions="actionNext"
-                    android:inputType="textPassword" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/senhaConfirmacaoLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/senhaConfirmacao"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Confirmação de Senha"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword" />
-            </android.support.design.widget.TextInputLayout>
+            <include
+                android:id="@+id/progressIndeterminateBar"
+                layout="@layout/progress_bar" />
 
             <Button
-                android:id="@+id/bt_cadastrar"
+                android:id="@+id/bt_salvar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Cadastrar-se" />
+                android:text="Salvar Perfil" />
         </LinearLayout>
     </ScrollView>
-
 </android.support.design.widget.CoordinatorLayout>
