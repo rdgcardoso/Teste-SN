@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.LogoutDTO;
+import br.com.teste.testerecyclerview.app.resources.Constantes;
 import br.com.teste.testerecyclerview.app.task.PreencheMenuUsuarioTask;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;

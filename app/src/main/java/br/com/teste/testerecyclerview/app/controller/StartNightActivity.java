@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 public abstract class StartNightActivity extends AppCompatActivity {
 
-    static final int USUARIO_CADASTROU_REQUEST = 1;
-
     protected void msgErroSnackBar(CoordinatorLayout coordinatorLayout, String mensagem) {
         Snackbar snackbar = Snackbar.make(coordinatorLayout, mensagem, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();

@@ -2,7 +2,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/coordinatorLayout">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +55,7 @@
                         android:id="@+id/nomeCompleto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Aline Santana, "
+                        android:text="John Balada, "
                         android:textColor="@android:color/white" />
 
                     <TextView
@@ -112,7 +113,7 @@
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="alinesantana" />
+                    android:text="johnbalada" />
             </LinearLayout>
 
             <View style="@style/Divider" />
@@ -134,7 +135,7 @@
                     android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="alinesantana@email.com" />
+                    android:text="johnbalada@email.com" />
             </LinearLayout>
 
             <View style="@style/Divider" />
@@ -155,7 +156,7 @@
                     android:id="@+id/genero"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Feminino" />
+                    android:text="Masculino" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

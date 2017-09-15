@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.LoginDTO;
+import br.com.teste.testerecyclerview.app.resources.Constantes;
 import br.com.teste.testerecyclerview.app.task.LoginTask;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 import br.com.teste.testerecyclerview.domain.model.Usuario;
@@ -52,7 +53,7 @@ public class LoginActivity extends StartNightActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), UsuarioCadastrarActivity.class);
-                startActivityForResult(i, USUARIO_CADASTROU_REQUEST);
+                startActivityForResult(i, Constantes.USUARIO_CADASTROU_REQUEST);
             }
         });
 
@@ -83,7 +84,7 @@ public class LoginActivity extends StartNightActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == USUARIO_CADASTROU_REQUEST) {
+        if (resultCode == RESULT_OK && requestCode == Constantes.USUARIO_CADASTROU_REQUEST) {
             finish();
         }
     }
@@ -95,8 +96,11 @@ public class LoginActivity extends StartNightActivity {
             msgErroSnackBar(coordinatorLayout, "Sua sessão expirou, realize o login novamente");
         }
 
-        if (getIntent().getBooleanExtra("logout", false)) {
+        Intent intentLogout = getIntent();
+
+        if (intentLogout.getBooleanExtra("logout", false)) {
             Snackbar.make(coordinatorLayout,"Você saiu do StartNight... Até a próxima :)", Snackbar.LENGTH_LONG).show();
+            intentLogout.putExtra("logout", false);
         }
     }
 

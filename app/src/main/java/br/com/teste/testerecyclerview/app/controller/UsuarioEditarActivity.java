@@ -7,6 +7,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputEditText;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -56,6 +57,8 @@ public class UsuarioEditarActivity extends StartNightActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_editar);
+
+        setupToolbar();
 
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
 
@@ -130,6 +133,7 @@ public class UsuarioEditarActivity extends StartNightActivity {
                             if (usuarioDTOresponse != null) {
                                 Log.d("LRDG", "code1: " + response.code());
                                 Log.d("LRDG", "response não nulo" + usuarioDTOresponse.toString());
+                                setResult(RESULT_OK, new Intent());
                                 finish();
                             }
 
@@ -209,8 +213,6 @@ public class UsuarioEditarActivity extends StartNightActivity {
                         generoSpinner.setSelection(adapterGenero.getPosition(usuario.getGeneroDescricao()) + 1);
 
                         Log.d("LRDG", "usuario.getGeneroDescricao() = " + usuario.getGeneroDescricao());
-
-                        //generoSpinner.setSelection(adapterGenero.getPosition(usuarioDTO.getSexo()));
                     }
                 } else {
                     Log.d("LRDG", "Erro!");
@@ -228,5 +230,19 @@ public class UsuarioEditarActivity extends StartNightActivity {
             }
 
         });
+    }
+
+    private void setupToolbar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setTitle("Editar Perfil");
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

@@ -46,8 +46,7 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_usuario);
 
-        ActionBar toolbar = getSupportActionBar();
-        toolbar.setTitle("Cadastrar-se");
+        setupToolbar();
 
         Button bt_cadastrar = (Button) findViewById(R.id.bt_cadastrar);
 
@@ -123,9 +122,7 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
                                 sharedPreferencesHelper.setToken(cadastroUsuarioDTO.getKey());
                                 Log.d("LRDG", "Usuario cadastrado com sucesso!");
 
-                                //startActivityForResult
-                                Intent it = new Intent();
-                                setResult(RESULT_OK, it);
+                                setResult(RESULT_OK, new Intent());
 
                                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(i);
@@ -302,5 +299,19 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
 
         adapterGenero.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         generoSpinner.setAdapter(adapterGenero);*/
+    }
+
+    private void setupToolbar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setTitle("Cadastrar-se");
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

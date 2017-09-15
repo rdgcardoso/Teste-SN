@@ -72,9 +72,11 @@ public class BaladaDetalhesActivity extends StartNightActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(balada.getNome());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setTitle(balada.getNome());
+        }
     }
 
     @Override
@@ -155,7 +157,7 @@ public class BaladaDetalhesActivity extends StartNightActivity {
             return mFragmentList.size();
         }
 
-        private void addFrag(Fragment fragment, String title){
+        private void addFrag(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
@@ -167,7 +169,7 @@ public class BaladaDetalhesActivity extends StartNightActivity {
         }
     }
 
-    public void enviaIdBalada(long id, Fragment fragment){
+    public void enviaIdBalada(long id, Fragment fragment) {
         Bundle bundle = new Bundle();
         bundle.putLong("id", id);
         fragment.setArguments(bundle);
