@@ -67,8 +67,12 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
                             dto.getLast_name(),
                             dto.getFoto(),
                             dto.getSexo(),
-                            dto.getDataNascimento()
+                            dto.getDataNascimentoFormatada()
                     );
+
+                    Log.d("LRDG", "=usuario na consulta = " + usuario.toString());
+                    Log.d("LRDG", "=usuarioDTO na consulta = " + dto.toString());
+
                 }
             } else {
                 Log.i("LRDG", "Erro ConsultarUsuarioTask " + response.code());
@@ -109,7 +113,7 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
         idadeView.setText(usuario.getIdade() + " anos");
         usernameView.setText(usuario.getUsername());
         emailView.setText(usuario.getEmail());
-        generoView.setText(usuario.getGeneroString());
+        generoView.setText(usuario.getGeneroDescricao());
 
         if (usuario.getFoto() != null) {
             Picasso.with(context).load(usuario.getFoto()).into(imageView);

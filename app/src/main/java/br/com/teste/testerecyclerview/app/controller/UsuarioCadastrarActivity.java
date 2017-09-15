@@ -8,18 +8,15 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 
@@ -39,7 +36,7 @@ import retrofit2.Response;
 public class UsuarioCadastrarActivity extends StartNightActivity {
 
     private TextInputEditText usernameView, nomeView, sobrenomeView, emailView, dataNascimentoView, senhaView, senhaConfirmacaoView;
-    private MaterialSpinner generoView;
+    private MaterialSpinner generoSpinner;
     private TextInputLayout usernameLayout, nomeLayout, sobrenomeLayout, emailLayout, dataNascimentoLayout, senhaLayout, senhaConfirmacaoLayout;
     private CoordinatorLayout coordinatorLayout;
     private CadastroUsuarioDTO cadastroUsuarioDTO;
@@ -59,7 +56,7 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
         sobrenomeView = (TextInputEditText) findViewById(R.id.sobrenome);
         emailView = (TextInputEditText) findViewById(R.id.email);
         dataNascimentoView = (TextInputEditText) findViewById(R.id.dataNascimento);
-        generoView = (MaterialSpinner) findViewById(R.id.genero);
+        generoSpinner = (MaterialSpinner) findViewById(R.id.genero);
         senhaView = (TextInputEditText) findViewById(R.id.senha);
         senhaConfirmacaoView = (TextInputEditText) findViewById(R.id.senhaConfirmacao);
 
@@ -80,19 +77,15 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
             @Override
             public void onClick(View view) {
 
-                Log.d("LRDG", "generoView.getSelectedItem()" + (generoView.getSelectedItemId()-1));
-
-                Usuario usuario;
-                usuario = new Usuario(
-                        usernameView.getText().toString(),
-                        nomeView.getText().toString(),
-                        sobrenomeView.getText().toString(),
-                        emailView.getText().toString(),
-                        dataNascimentoView.getText().toString(),
-                        String.valueOf(generoView.getSelectedItemId()),
-                        senhaView.getText().toString(),
-                        senhaConfirmacaoView.getText().toString()
-                );
+                Usuario usuario = new Usuario();
+                usuario.setUsername(usernameView.getText().toString());
+                usuario.setNome(nomeView.getText().toString());
+                usuario.setSobrenome(sobrenomeView.getText().toString());
+                usuario.setEmail(emailView.getText().toString());
+                usuario.setDataNascimentoFormatada(dataNascimentoView.getText().toString());
+                usuario.setGeneroDescricao(generoSpinner.getSelectedItem().toString());
+                usuario.setSenha(senhaView.getText().toString());
+                usuario.setSenhaConfirmacao(senhaConfirmacaoView.getText().toString());
 
                 Log.d("LRDG", "usuario=" + (usuario.toString()));
 
@@ -103,16 +96,14 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
                     return;
                 }
 
-                Log.d("LRDG", "usuario: " + usuario.toString());
-
                 CadastrarUsuarioEndpoint endpoint = RetrofitHelper.with(getApplicationContext()).createCadastrarUsuarioEndpoint();
                 Call<CadastroUsuarioDTO> call = endpoint.cadastrarUsuario(
                         usuario.getUsername(),
                         usuario.getNome(),
                         usuario.getSobrenome(),
                         usuario.getEmail(),
-                        usuario.getDataNascimento(),
-                        usuario.getGenero(),
+                        usuario.getDataNascimentoFormatada(),
+                        usuario.getGeneroId(),
                         usuario.getSenha(),
                         usuario.getSenhaConfirmacao()
                 );
@@ -164,7 +155,7 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
                                     dataNascimentoLayout.setError(cadastroUsuarioDTO.getData_nascimento()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getSexo() != null) {
-                                    generoView.setError(cadastroUsuarioDTO.getSexo()[0]);
+                                    generoSpinner.setError(cadastroUsuarioDTO.getSexo()[0]);
                                 }
                                 if (cadastroUsuarioDTO.getPassword1() != null) {
                                     senhaLayout.setError(cadastroUsuarioDTO.getPassword1()[0]);
@@ -209,8 +200,8 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
             usuario.setNome(nomeView.getText().toString());
             usuario.setSobrenome(sobrenomeView.getText().toString());
             usuario.setEmail(emailView.getText().toString());
-            usuario.setDataNascimento(dataNascimentoView.getText().toString());
-            usuario.setGenero(String.valueOf(generoView.getSelectedItemId()));
+            usuario.setDataNascimentoFormatada(dataNascimentoView.getText().toString());
+            usuario.setGeneroDescricao(generoSpinner.getSelectedItem().toString());
             usuario.setSenha(senhaView.getText().toString());
             usuario.setSenhaConfirmacao(senhaConfirmacaoView.getText().toString());
 
@@ -264,10 +255,10 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
         }
         try {
             usuario.validarGenero();
-            generoView.setError(null);
+            generoSpinner.setError(null);
 
         } catch (Exception cause) {
-            generoView.setError(cause.getMessage());
+            generoSpinner.setError(cause.getMessage());
             isOk = true;
         }
         try {
@@ -294,20 +285,22 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
     protected void onResume() {
         super.onResume();
 
-        ArrayAdapter<Genero> adapterGenero = new ArrayAdapter<>(
+        Genero genero = new Genero();
+
+        ArrayAdapter<String> adapterGenero = new ArrayAdapter<>(
                 this,
                 R.layout.spinner_list_style,
-                Genero.values()
+                genero.getGenerosDescricaoList()
         );
 
         adapterGenero.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        generoView.setAdapter(adapterGenero);
+        generoSpinner.setAdapter(adapterGenero);
 
         /*ArrayAdapter<Genero> adapterGenero = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Genero.values());
 
         adapterGenero.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        generoView.setAdapter(adapterGenero);*/
+        generoSpinner.setAdapter(adapterGenero);*/
     }
 }

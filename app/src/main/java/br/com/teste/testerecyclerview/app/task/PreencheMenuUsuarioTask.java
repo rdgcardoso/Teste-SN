@@ -6,7 +6,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,19 +54,21 @@ public class PreencheMenuUsuarioTask extends AsyncTask<Void, Void, Usuario> {
             response = call.execute();
 
             if (response.isSuccessful()) {
+
                 dto = response.body();
+                Log.i("LRDG", "USUARIO DTO no MENU = " + dto);
 
                 if (dto != null) {
-                    usuario = new Usuario(
-                            dto.getId(),
-                            dto.getUsername(),
-                            dto.getEmail(),
-                            dto.getFirst_name(),
-                            dto.getLast_name(),
-                            dto.getFoto(),
-                            dto.getSexo(),
-                            dto.getDataNascimento()
-                    );
+                    usuario = new Usuario();
+
+                    usuario.setId(dto.getId());
+                    usuario.setUsername(dto.getUsername());
+                    usuario.setEmail(dto.getEmail());
+                    usuario.setNome(dto.getFirst_name());
+                    usuario.setSobrenome(dto.getLast_name());
+                    usuario.setFoto(dto.getFoto());
+                    usuario.setGeneroId(dto.getSexo());
+                    usuario.setDataNascimentoFormatada(dto.getDataNascimentoFormatada());
                 }
             } else {
                 Log.i("LRDG", "Erro PreencheMenuUsuarioTask " + response.code());
@@ -107,5 +108,7 @@ public class PreencheMenuUsuarioTask extends AsyncTask<Void, Void, Usuario> {
         }
 
         Snackbar.make(coordinatorLayout, "Bem-vindo, " + usuario.getNome() + "!", Snackbar.LENGTH_LONG).show();
+        Log.d("LRDG", "USUARIO NO MENU = " + usuario.toString());
+
     }
 }

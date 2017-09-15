@@ -20,7 +20,7 @@ public interface CadastrarUsuarioEndpoint {
             @Field("last_name") String last_name,
             @Field("email") String email,
             @Field("data_nascimento") String data_nascimento,
-            @Field("sexo") String sexo,
+            @Field("sexo") int sexo,
             @Field("password1") String password1,
             @Field("password2") String password2
     );

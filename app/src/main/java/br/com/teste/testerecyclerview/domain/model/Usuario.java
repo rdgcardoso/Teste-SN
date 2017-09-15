@@ -3,25 +3,28 @@ package br.com.teste.testerecyclerview.domain.model;
 import android.util.Log;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Usuario implements Serializable {
 
-    private static final String GENERO_MASCULINO = "1";
-    private static final String GENERO_FEMININO = "2";
-
-    private long id;
+    private String id;
     private String username;
     private String email;
     private String nome;
     private String sobrenome;
-    private String dataNascimento;
-    private String genero;
+    private String dataNascimentoFormatada;
     private String foto;
     private String senha;
     private String senhaConfirmacao;
+    private Genero genero;
 
     public Usuario() {
+        genero = new Genero();
     }
 
     public Usuario(String username, String senha) {
@@ -29,45 +32,62 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public Usuario(String username, String nome, String sobrenome, String email, String dataNascimento, String genero, String senha, String senhaConfirmacao) {
-        this.username = username;
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.email = email;
-        this.dataNascimento = dataNascimento;
-        this.genero = genero;
-        this.senha = senha;
-        this.senhaConfirmacao = senhaConfirmacao;
-    }
+    //TODO remover construtor
+    public Usuario(String id, String username, String email, String nome, String sobrenome, String foto, int genero, String dataNascimentoFormatada) {
 
-    public Usuario(long id, String username, String email, String nome, String sobrenome, String foto, String genero, String dataNascimento) {
+        this.genero = new Genero();
+
         this.id = id;
         this.username = username;
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.foto = foto;
-        this.genero = genero;
-        this.dataNascimento = dataNascimento;
+        this.genero.setId(genero);
+        this.dataNascimentoFormatada = dataNascimentoFormatada;
     }
 
+    //TODO corrigir método, data < dia atual
     public int getIdade() {
+
+        Log.d("LRDG", "DATA NASC: " + dataNascimentoFormatada);
 
         Calendar dataNasc = Calendar.getInstance();
         Calendar hoje = Calendar.getInstance();
         int ano, mes, dia;
-        ano = Integer.parseInt(dataNascimento.substring(0, 4));
-        mes = Integer.parseInt(dataNascimento.substring(5, 7));
-        dia = Integer.parseInt(dataNascimento.substring(8, 10));
+
+        dia = Integer.parseInt(dataNascimentoFormatada.substring(0, 2));
+        mes = Integer.parseInt(dataNascimentoFormatada.substring(3, 5));
+        ano = Integer.parseInt(dataNascimentoFormatada.substring(6, 10));
+
+        Log.d("LRDG", "Dia "+dia+" |Mês "+mes+" |Ano "+ano);
         dataNasc.set(ano, mes, dia);
 
         int idade = hoje.get(Calendar.YEAR) - dataNasc.get(Calendar.YEAR);
+
+        Log.d("LRDG", "Idade "+idade);
 
         if (hoje.get(Calendar.DAY_OF_YEAR) < dataNasc.get(Calendar.DAY_OF_YEAR)){
             idade--;
         }
 
         return idade;
+    }
+
+    public int getGeneroId() {
+        return genero.getId();
+    }
+
+    public String getGeneroDescricao() {
+        return genero.getDescricao();
+    }
+
+    public void setGeneroDescricao(String generoDescricao) {
+        genero.setDescricao(generoDescricao);
+    }
+
+    public void setGeneroId(int generoId) {
+        genero.setId(generoId);
     }
 
     public String getEmail() {
@@ -82,11 +102,11 @@ public class Usuario implements Serializable {
         return foto;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -118,12 +138,22 @@ public class Usuario implements Serializable {
         this.sobrenome = sobrenome;
     }
 
-    public String getDataNascimento() {
-        return dataNascimento;
+    public String getDataNascimentoFormatada() {
+        return dataNascimentoFormatada;
     }
 
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setDataNascimentoFormatada(String dataNascimentoFormatada) {
+        this.dataNascimentoFormatada = dataNascimentoFormatada;
+    }
+
+    public String getDataNascimento() {
+
+        String dataNascimento =
+                dataNascimentoFormatada.substring(6, 10) + "-" + dataNascimentoFormatada.substring(3, 5) + "-" + dataNascimentoFormatada.substring(0, 2);
+
+        Log.d("LRDG", "DATA NASCIMENTO getDataNascimento = " + dataNascimento);
+
+        return dataNascimento;
     }
 
     public void setFoto(String foto) {
@@ -146,25 +176,6 @@ public class Usuario implements Serializable {
         this.senhaConfirmacao = senhaConfirmacao;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public String getGeneroString() {
-        if (genero != null) {
-            if (genero.equals(GENERO_MASCULINO)) {
-                return "Masculino";
-            } else if (genero.equals(GENERO_FEMININO)) {
-                return "Feminino";
-            }
-        }
-        return "";
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
@@ -173,11 +184,11 @@ public class Usuario implements Serializable {
                 ", email='" + email + '\'' +
                 ", nome='" + nome + '\'' +
                 ", sobrenome='" + sobrenome + '\'' +
-                ", dataNascimento='" + dataNascimento + '\'' +
-                ", genero='" + genero + '\'' +
+                ", dataNascimentoFormatada='" + dataNascimentoFormatada + '\'' +
                 ", foto='" + foto + '\'' +
                 ", senha='" + senha + '\'' +
                 ", senhaConfirmacao='" + senhaConfirmacao + '\'' +
+                ", genero=" + genero +
                 '}';
     }
 
@@ -216,9 +227,9 @@ public class Usuario implements Serializable {
     }
 
     public void validarDataNascimento() throws Exception {
-        if (dataNascimento == null) {
+        if (dataNascimentoFormatada == null) {
             throw new Exception("Data de Nascimento não pode ser nula!");
-        } else if (dataNascimento.isEmpty()) {
+        } else if (dataNascimentoFormatada.isEmpty()) {
             throw new Exception("Campo obrigatório");
         }
     }
@@ -226,9 +237,9 @@ public class Usuario implements Serializable {
     public void validarGenero() throws Exception {
         if (genero == null) {
             throw new Exception("Gênero não pode ser nulo!");
-        } else if (Integer.parseInt(genero) == 0) {
+        } /*else if (Integer.parseInt(genero) == 0) {
             throw new Exception("Campo obrigatório");
-        }
+        }*/
     }
 
     public void validarSenha() throws Exception {

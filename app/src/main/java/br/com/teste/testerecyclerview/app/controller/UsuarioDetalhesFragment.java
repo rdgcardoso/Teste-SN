@@ -33,10 +33,14 @@ public class UsuarioDetalhesFragment extends Fragment {
             }
         });
 
-        sharedPreferencesHelper = new SharedPreferencesHelper(getContext());
-        new ConsultarUsuarioTask(getContext(), sharedPreferencesHelper.recuperarToken()).execute();
-
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        sharedPreferencesHelper = new SharedPreferencesHelper(getContext());
+        new ConsultarUsuarioTask(getContext(), sharedPreferencesHelper.recuperarToken()).execute();
+    }
 }

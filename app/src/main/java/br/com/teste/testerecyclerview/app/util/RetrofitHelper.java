@@ -11,6 +11,7 @@ import br.com.teste.testerecyclerview.app.ws.LoginEndpoint;
 import br.com.teste.testerecyclerview.app.ws.LogoutEndpoint;
 import br.com.teste.testerecyclerview.app.ws.RankingBaladasEndpoint;
 import br.com.teste.testerecyclerview.app.ws.TokenEndpoint;
+import br.com.teste.testerecyclerview.app.ws.UsuarioEditarEndpoint;
 import br.com.teste.testerecyclerview.app.ws.UsuarioEndpoint;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -56,6 +57,10 @@ public final class RetrofitHelper {
 
     public CadastrarUsuarioEndpoint createCadastrarUsuarioEndpoint() {
         return retrofit.create(CadastrarUsuarioEndpoint.class);
+    }
+
+    public UsuarioEditarEndpoint createUsuarioEditarEndpoint() {
+        return retrofit.create(UsuarioEditarEndpoint.class);
     }
 
     public static RetrofitHelper with (Context context) {

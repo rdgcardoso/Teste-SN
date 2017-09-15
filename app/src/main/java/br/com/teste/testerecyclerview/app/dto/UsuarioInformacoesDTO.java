@@ -2,12 +2,11 @@ package br.com.teste.testerecyclerview.app.dto;
 
 public class UsuarioInformacoesDTO {
     private String foto;
-    private String sexo;
+    private int sexo;
     private String data_nascimento;
     private String data_nascimento_formatada;
 
-
-    public String getSexo() {
+    public int getSexo() {
         return sexo;
     }
 
@@ -23,4 +22,21 @@ public class UsuarioInformacoesDTO {
         return data_nascimento_formatada;
     }
 
+    public void setSexo(int sexo) {
+        this.sexo = sexo;
+    }
+
+    public void setDataNascimento(String data_nascimento) {
+        this.data_nascimento = data_nascimento;
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioInformacoesDTO{" +
+                "foto='" + foto + '\'' +
+                ", sexo='" + sexo + '\'' +
+                ", data_nascimento='" + data_nascimento + '\'' +
+                ", data_nascimento_formatada='" + data_nascimento_formatada + '\'' +
+                '}';
+    }
 }
