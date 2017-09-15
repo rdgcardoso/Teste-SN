@@ -2,17 +2,36 @@ package br.com.teste.testerecyclerview.app.dto;
 
 import java.util.Arrays;
 
-public class CadastroUsuarioDTO {
+public class UsuarioFormularioDTO {
     private String key;
     private String[] username;
     private String[] email;
     private String[] first_name;
     private String[] last_name;
-    private String[] data_nascimento;
     private String[] password2;
     private String[] password1;
-    private String[] sexo;
     private String[] non_field_errors;
+    private UsuarioInfoFormularioDTO user_info;
+
+    public UsuarioFormularioDTO() {
+        user_info = new UsuarioInfoFormularioDTO();
+    }
+
+    public String[] getSexo() {
+        return user_info.getSexo();
+    }
+
+    public void setSexo(String[] sexo) {
+        user_info.setSexo(sexo);
+    }
+
+    public String[] getDataNascimento() {
+        return user_info.getDataNascimento();
+    }
+
+    public void setDataNascimento(String[] data_nascimento) {
+        user_info.setDataNascimento(data_nascimento);
+    }
 
     public String[] getUsername() {
         return username;
@@ -46,14 +65,6 @@ public class CadastroUsuarioDTO {
         this.last_name = last_name;
     }
 
-    public String[] getData_nascimento() {
-        return data_nascimento;
-    }
-
-    public void setData_nascimento(String[] data_nascimento) {
-        this.data_nascimento = data_nascimento;
-    }
-
     public String[] getPassword2() {
         return password2;
     }
@@ -70,14 +81,6 @@ public class CadastroUsuarioDTO {
         this.password1 = password1;
     }
 
-    public String[] getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String[] sexo) {
-        this.sexo = sexo;
-    }
-
     public String[] getNon_field_errors() {
         return non_field_errors;
     }
@@ -92,17 +95,16 @@ public class CadastroUsuarioDTO {
 
     @Override
     public String toString() {
-        return "CadastroUsuarioDTO{" +
+        return "UsuarioFormularioDTO{" +
                 "key='" + key + '\'' +
                 ", username=" + Arrays.toString(username) +
                 ", email=" + Arrays.toString(email) +
                 ", first_name=" + Arrays.toString(first_name) +
                 ", last_name=" + Arrays.toString(last_name) +
-                ", data_nascimento=" + Arrays.toString(data_nascimento) +
                 ", password2=" + Arrays.toString(password2) +
                 ", password1=" + Arrays.toString(password1) +
-                ", sexo=" + Arrays.toString(sexo) +
                 ", non_field_errors=" + Arrays.toString(non_field_errors) +
+                ", user_info=" + user_info +
                 '}';
     }
 }

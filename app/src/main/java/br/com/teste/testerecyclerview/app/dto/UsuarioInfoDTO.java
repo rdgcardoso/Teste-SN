@@ -1,6 +1,6 @@
 package br.com.teste.testerecyclerview.app.dto;
 
-public class UsuarioInformacoesDTO {
+public class UsuarioInfoDTO {
     private String foto;
     private int sexo;
     private String data_nascimento;
@@ -32,7 +32,7 @@ public class UsuarioInformacoesDTO {
 
     @Override
     public String toString() {
-        return "UsuarioInformacoesDTO{" +
+        return "UsuarioInfoDTO{" +
                 "foto='" + foto + '\'' +
                 ", sexo='" + sexo + '\'' +
                 ", data_nascimento='" + data_nascimento + '\'' +

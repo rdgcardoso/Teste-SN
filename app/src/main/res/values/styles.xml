@@ -38,7 +38,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">#3d3d3d</item>
-        <item name="android:layout_marginStart">28dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
     </style>
 
 </resources>

@@ -92,12 +92,14 @@ public class LoginActivity extends StartNightActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (getIntent().getBooleanExtra("sessaoExpirou", false)) {
+
+        Intent intentSessaoExpirou = getIntent();
+        if (intentSessaoExpirou.getBooleanExtra("sessaoExpirou", false)) {
             msgErroSnackBar(coordinatorLayout, "Sua sessão expirou, realize o login novamente");
+            intentSessaoExpirou.putExtra("sessaoExpirou", false);
         }
 
         Intent intentLogout = getIntent();
-
         if (intentLogout.getBooleanExtra("logout", false)) {
             Snackbar.make(coordinatorLayout,"Você saiu do StartNight... Até a próxima :)", Snackbar.LENGTH_LONG).show();
             intentLogout.putExtra("logout", false);

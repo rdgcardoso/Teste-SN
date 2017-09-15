@@ -100,8 +100,7 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada>  {
 
         Log.i("LRDG", "Pós execução ConsultarBaladaTask" + responseCode);
 
-        CodigoRetornoHTTP codigo = new CodigoRetornoHTTP(responseCode);
-        if (codigo.notAuthorized(context)) {
+        if (CodigoRetornoHTTP.notAuthorized(context, responseCode)) {
             return;
         }
 

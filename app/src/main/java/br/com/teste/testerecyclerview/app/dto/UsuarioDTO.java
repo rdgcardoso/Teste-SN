@@ -8,10 +8,10 @@ public class UsuarioDTO {
     private String last_name;
     private String password2;
     private String password1;
-    private UsuarioInformacoesDTO user_info;
+    private UsuarioInfoDTO user_info;
 
     public UsuarioDTO() {
-        user_info = new UsuarioInformacoesDTO();
+        user_info = new UsuarioInfoDTO();
     }
 
     public String getId() {
@@ -34,7 +34,7 @@ public class UsuarioDTO {
         return last_name;
     }
 
-    public UsuarioInformacoesDTO getUserInfo() {
+    public UsuarioInfoDTO getUserInfo() {
         return user_info;
     }
 
@@ -78,7 +78,7 @@ public class UsuarioDTO {
         this.last_name = last_name;
     }
 
-    public void setUser_info(UsuarioInformacoesDTO user_info) {
+    public void setUser_info(UsuarioInfoDTO user_info) {
         this.user_info = user_info;
     }
 

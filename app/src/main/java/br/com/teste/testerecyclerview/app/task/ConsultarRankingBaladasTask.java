@@ -120,8 +120,7 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
     protected void onPostExecute(final List<Balada> baladaList) {
         Log.i("LRDG", "Pós execução ConsultarRankingBaladasTask");
 
-        CodigoRetornoHTTP codigo = new CodigoRetornoHTTP(responseCode);
-        if (codigo.notAuthorized(context)) {
+        if (CodigoRetornoHTTP.notAuthorized(context, responseCode)) {
             return;
         }
 

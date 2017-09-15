@@ -30,6 +30,8 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
     private String token;
     private Response<UsuarioDTO> response;
     private int responseCode;
+    private AppCompatActivity activity;
+    private ProgressBar progressBar;
 
     public ConsultarUsuarioTask(Context context, String token) {
         this.context = context;
@@ -39,6 +41,9 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
     @Override //Pré execucao
     protected void onPreExecute() {
         Log.i("LRDG", "Pré execução ConsultarUsuarioTask");
+        activity = (AppCompatActivity) context;
+        progressBar = activity.findViewById(R.id.progressIndeterminateBar);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override //Execução
@@ -90,12 +95,11 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
     protected void onPostExecute(Usuario usuario) {
         Log.i("LRDG", "Pós execução ConsultarUsuarioTask");
 
-        CodigoRetornoHTTP codigo = new CodigoRetornoHTTP(responseCode);
-        if (codigo.notAuthorized(context)) {
+        progressBar.setVisibility(View.GONE);
+
+        if (CodigoRetornoHTTP.notAuthorized(context, responseCode)) {
             return;
         }
-
-        AppCompatActivity activity = (AppCompatActivity) context;
 
         TextView nomeCompletoView = (TextView) activity.findViewById(R.id.nomeCompleto);
         TextView idadeView = (TextView) activity.findViewById(R.id.idade);

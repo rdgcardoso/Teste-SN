@@ -55,6 +55,6 @@ public class UsuarioDetalhesFragment extends Fragment {
 
         if (resultCode == AppCompatActivity.RESULT_OK && requestCode == Constantes.USUARIO_EDITOU_REQUEST) {
                 Snackbar.make(coordinatorLayout, "Alterações salvas com sucesso", Snackbar.LENGTH_SHORT).show();
-            }
+        }
     }
 }

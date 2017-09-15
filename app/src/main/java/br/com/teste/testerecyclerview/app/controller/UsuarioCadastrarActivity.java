@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,7 +20,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import br.com.teste.testerecyclerview.R;
-import br.com.teste.testerecyclerview.app.dto.CadastroUsuarioDTO;
+import br.com.teste.testerecyclerview.app.dto.UsuarioFormularioDTO;
 import br.com.teste.testerecyclerview.app.resources.Mask;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
@@ -39,7 +38,7 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
     private MaterialSpinner generoSpinner;
     private TextInputLayout usernameLayout, nomeLayout, sobrenomeLayout, emailLayout, dataNascimentoLayout, senhaLayout, senhaConfirmacaoLayout;
     private CoordinatorLayout coordinatorLayout;
-    private CadastroUsuarioDTO cadastroUsuarioDTO;
+    private UsuarioFormularioDTO usuarioFormularioDTO;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,7 +95,7 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
                 }
 
                 CadastrarUsuarioEndpoint endpoint = RetrofitHelper.with(getApplicationContext()).createCadastrarUsuarioEndpoint();
-                Call<CadastroUsuarioDTO> call = endpoint.cadastrarUsuario(
+                Call<UsuarioFormularioDTO> call = endpoint.cadastrarUsuario(
                         usuario.getUsername(),
                         usuario.getNome(),
                         usuario.getSobrenome(),
@@ -107,19 +106,19 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
                         usuario.getSenhaConfirmacao()
                 );
 
-                call.enqueue(new Callback<CadastroUsuarioDTO>() {
+                call.enqueue(new Callback<UsuarioFormularioDTO>() {
                     @Override
-                    public void onResponse(@NonNull Call<CadastroUsuarioDTO> call, @NonNull Response<CadastroUsuarioDTO> response) {
-                        cadastroUsuarioDTO = response.body();
+                    public void onResponse(@NonNull Call<UsuarioFormularioDTO> call, @NonNull Response<UsuarioFormularioDTO> response) {
+                        usuarioFormularioDTO = response.body();
 
                         Log.d("LRDG", "response: " + response.body());
-                        Log.d("LRDG", "cadastroUsuarioDTO response: " + cadastroUsuarioDTO);
+                        Log.d("LRDG", "usuarioFormularioDTO response: " + usuarioFormularioDTO);
                         if (response.isSuccessful()) {
 
-                            if (cadastroUsuarioDTO != null) {
+                            if (usuarioFormularioDTO != null) {
                                 SharedPreferencesHelper sharedPreferencesHelper;
                                 sharedPreferencesHelper = new SharedPreferencesHelper(getApplicationContext());
-                                sharedPreferencesHelper.setToken(cadastroUsuarioDTO.getKey());
+                                sharedPreferencesHelper.setToken(usuarioFormularioDTO.getKey());
                                 Log.d("LRDG", "Usuario cadastrado com sucesso!");
 
                                 setResult(RESULT_OK, new Intent());
@@ -132,36 +131,36 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
 
                             try {
                                 Gson gson = new Gson();
-                                cadastroUsuarioDTO = gson.fromJson(response.errorBody().string(), CadastroUsuarioDTO.class);
+                                usuarioFormularioDTO = gson.fromJson(response.errorBody().string(), UsuarioFormularioDTO.class);
+                                Log.d("LRDG", "usuarioFormularioDTO=" + usuarioFormularioDTO.toString());
 
-                                Log.d("LRDG", "cadastroUsuarioDTO=" + cadastroUsuarioDTO.toString());
+                                if (usuarioFormularioDTO.getUsername() != null) {
+                                    usernameLayout.setError(usuarioFormularioDTO.getUsername()[0]);
+                                }
+                                if (usuarioFormularioDTO.getFirst_name() != null) {
+                                    nomeLayout.setError(usuarioFormularioDTO.getFirst_name()[0]);
+                                }
+                                if (usuarioFormularioDTO.getLast_name() != null) {
+                                    sobrenomeLayout.setError(usuarioFormularioDTO.getLast_name()[0]);
+                                }
+                                if (usuarioFormularioDTO.getEmail() != null) {
+                                    emailLayout.setError(usuarioFormularioDTO.getEmail()[0]);
+                                }
 
-                                if (cadastroUsuarioDTO.getUsername() != null) {
-                                    usernameLayout.setError(cadastroUsuarioDTO.getUsername()[0]);
+                                if (usuarioFormularioDTO.getDataNascimento() != null) {
+                                    dataNascimentoLayout.setError(usuarioFormularioDTO.getDataNascimento()[0]);
                                 }
-                                if (cadastroUsuarioDTO.getFirst_name() != null) {
-                                    nomeLayout.setError(cadastroUsuarioDTO.getFirst_name()[0]);
+                                if (usuarioFormularioDTO.getSexo() != null) {
+                                    generoSpinner.setError(usuarioFormularioDTO.getSexo()[0]);
                                 }
-                                if (cadastroUsuarioDTO.getLast_name() != null) {
-                                    sobrenomeLayout.setError(cadastroUsuarioDTO.getLast_name()[0]);
+                                if (usuarioFormularioDTO.getPassword1() != null) {
+                                    senhaLayout.setError(usuarioFormularioDTO.getPassword1()[0]);
                                 }
-                                if (cadastroUsuarioDTO.getEmail() != null) {
-                                    emailLayout.setError(cadastroUsuarioDTO.getEmail()[0]);
+                                if (usuarioFormularioDTO.getPassword2() != null) {
+                                    senhaConfirmacaoLayout.setError(usuarioFormularioDTO.getPassword2()[0]);
                                 }
-                                if (cadastroUsuarioDTO.getData_nascimento() != null) {
-                                    dataNascimentoLayout.setError(cadastroUsuarioDTO.getData_nascimento()[0]);
-                                }
-                                if (cadastroUsuarioDTO.getSexo() != null) {
-                                    generoSpinner.setError(cadastroUsuarioDTO.getSexo()[0]);
-                                }
-                                if (cadastroUsuarioDTO.getPassword1() != null) {
-                                    senhaLayout.setError(cadastroUsuarioDTO.getPassword1()[0]);
-                                }
-                                if (cadastroUsuarioDTO.getPassword2() != null) {
-                                    senhaConfirmacaoLayout.setError(cadastroUsuarioDTO.getPassword2()[0]);
-                                }
-                                if (cadastroUsuarioDTO.getNon_field_errors() != null) {
-                                    Log.d("LRDG", "Erro no formulário: " + cadastroUsuarioDTO.getNon_field_errors()[0]);
+                                if (usuarioFormularioDTO.getNon_field_errors() != null) {
+                                    Log.d("LRDG", "Erro no formulário: " + usuarioFormularioDTO.getNon_field_errors()[0]);
                                 }
 
                                 //Log.d("LRDG", "errorBody toString: " + response.errorBody().toString());
@@ -170,7 +169,7 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
                                 e.printStackTrace();
                             }
                             Log.d("LRDG", "Erro! Sem sucesso no cadastro! Erro: " + response.code());
-                            Log.d("LRDG", "CadastroUsuarioDTO response: " + cadastroUsuarioDTO);
+                            Log.d("LRDG", "UsuarioFormularioDTO response: " + usuarioFormularioDTO);
                             Log.d("LRDG", "response toString: " + response.toString());
                             Log.d("LRDG", "response message: " + response.message());
                         }
@@ -178,7 +177,7 @@ public class UsuarioCadastrarActivity extends StartNightActivity {
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<CadastroUsuarioDTO> call, @NonNull Throwable t) {
+                    public void onFailure(@NonNull Call<UsuarioFormularioDTO> call, @NonNull Throwable t) {
                         Log.d("LRDG", "Falha ao cadastrar!");
                     }
                 });

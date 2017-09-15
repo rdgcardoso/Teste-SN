@@ -153,8 +153,7 @@ public class BaladaRankingFragment extends Fragment {
                     }
                 } else {
                     Log.d("LRDG", "Erro em BaladaRankingFragment");
-                    CodigoRetornoHTTP codigo = new CodigoRetornoHTTP(response.code());
-                    codigo.notAuthorized(getContext());
+                    CodigoRetornoHTTP.notAuthorized(getContext(), response.code());
                 }
             }
 

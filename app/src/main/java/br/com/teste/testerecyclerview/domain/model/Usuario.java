@@ -237,9 +237,9 @@ public class Usuario implements Serializable {
     public void validarGenero() throws Exception {
         if (genero == null) {
             throw new Exception("Gênero não pode ser nulo!");
-        } /*else if (Integer.parseInt(genero) == 0) {
+        } else if (genero.getId() < 1) {
             throw new Exception("Campo obrigatório");
-        }*/
+        }
     }
 
     public void validarSenha() throws Exception {

@@ -86,8 +86,7 @@ public class PreencheMenuUsuarioTask extends AsyncTask<Void, Void, Usuario> {
     protected void onPostExecute(Usuario usuario) {
         Log.i("LRDG", "Pós execução PreencheMenuUsuarioTask");
 
-        CodigoRetornoHTTP codigo = new CodigoRetornoHTTP(responseCode);
-        if (codigo.notAuthorized(context)) {
+        if (CodigoRetornoHTTP.notAuthorized(context, responseCode)) {
             return;
         }
 

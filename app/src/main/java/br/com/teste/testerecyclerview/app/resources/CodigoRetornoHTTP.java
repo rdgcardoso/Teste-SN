@@ -6,15 +6,9 @@ import android.util.Log;
 
 import br.com.teste.testerecyclerview.app.controller.LoginActivity;
 
-public class CodigoRetornoHTTP {
+public abstract class CodigoRetornoHTTP {
 
-    private int code;
-
-    public CodigoRetornoHTTP(int code) {
-        this.code = code;
-    }
-
-    public boolean notAuthorized(Context context) {
+    public static boolean notAuthorized(Context context, int code) {
         if (code == 401) {
             Log.i("LRDG", "Erro, não autorizado! Cod: " + code);
             Intent intent = new Intent(context, LoginActivity.class);
