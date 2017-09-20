@@ -1,4 +1,4 @@
-package br.com.teste.testerecyclerview.app.task;
+package br.com.teste.testerecyclerview.app.task.apagar;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -101,17 +101,17 @@ public class ConsultarUsuarioTask extends AsyncTask<Void, Void, Usuario> {
             return;
         }
 
-        TextView nomeCompletoView = (TextView) activity.findViewById(R.id.nomeCompleto);
-        TextView idadeView = (TextView) activity.findViewById(R.id.idade);
-        TextView usernameView = (TextView) activity.findViewById(R.id.username);
-        TextView emailView = (TextView) activity.findViewById(R.id.email);
-        TextView generoView = (TextView) activity.findViewById(R.id.genero);
-        ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.progressIndeterminateBar);
+        TextView nomeCompletoView = activity.findViewById(R.id.nomeCompleto);
+        TextView idadeView = activity.findViewById(R.id.idade);
+        TextView usernameView = activity.findViewById(R.id.username);
+        TextView emailView = activity.findViewById(R.id.email);
+        TextView generoView = activity.findViewById(R.id.genero);
+        ProgressBar progressBar = activity.findViewById(R.id.progressIndeterminateBar);
         View detalhesUsuarioContainer = activity.findViewById(R.id.detalhesUsuarioContainer);
 
 
-        ImageView imageView = (ImageView) activity.findViewById(R.id.profile_image);
-        ImageView imageBlurView = (ImageView) activity.findViewById(R.id.profile_imageBlur);
+        ImageView imageView = activity.findViewById(R.id.profile_image);
+        ImageView imageBlurView = activity.findViewById(R.id.profile_imageBlur);
 
         nomeCompletoView.setText(usuario.getNomeCompleto() + ",");
         idadeView.setText(usuario.getIdade() + " anos");

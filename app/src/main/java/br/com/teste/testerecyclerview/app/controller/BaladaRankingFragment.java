@@ -22,14 +22,10 @@ import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.adapter.BaladaAdapter;
 import br.com.teste.testerecyclerview.app.adapter.CustomItemClickListener;
 import br.com.teste.testerecyclerview.app.dto.BaladaDTO;
-import br.com.teste.testerecyclerview.app.dto.UsuarioDTO;
 import br.com.teste.testerecyclerview.app.resources.CodigoRetornoHTTP;
-import br.com.teste.testerecyclerview.app.task.ConsultarRankingBaladasTask;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
-import br.com.teste.testerecyclerview.app.ws.BaladaEndpoint;
 import br.com.teste.testerecyclerview.app.ws.RankingBaladasEndpoint;
-import br.com.teste.testerecyclerview.app.ws.UsuarioEndpoint;
 import br.com.teste.testerecyclerview.domain.model.Balada;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,7 +67,7 @@ public class BaladaRankingFragment extends Fragment {
         View progressBar = getActivity().findViewById(R.id.progressIndeterminateBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler);
+        recyclerView = getActivity().findViewById(R.id.recycler);
         RecyclerView.LayoutManager layout = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layout);
 

@@ -1,4 +1,4 @@
-package br.com.teste.testerecyclerview.app.task;
+package br.com.teste.testerecyclerview.app.task.apagar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -104,15 +104,15 @@ public class ConsultarBaladaTask extends AsyncTask<Void, Void, Balada>  {
             return;
         }
 
-        ImageView fotoView = (ImageView) activity.findViewById(R.id.foto);
-        TextView endereco1View = (TextView) activity.findViewById(R.id.endereco1);
-        TextView endereco2View = (TextView) activity.findViewById(R.id.endereco2);
-        TextView descricaoView = (TextView) activity.findViewById(R.id.descricao);
-        TextView siteView = (TextView) activity.findViewById(R.id.site);
-        TextView musicaTipoView = (TextView) activity.findViewById(R.id.tipoMusica);
-        TextView precoMedioView = (TextView) activity.findViewById(R.id.precoMedio);
-        ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.progressIndeterminateBar);
-        LinearLayout detalhesBaladaContainer = (LinearLayout) activity.findViewById(R.id.detalhesBaladaContainer);
+        ImageView fotoView = activity.findViewById(R.id.foto);
+        TextView endereco1View = activity.findViewById(R.id.endereco1);
+        TextView endereco2View = activity.findViewById(R.id.endereco2);
+        TextView descricaoView = activity.findViewById(R.id.descricao);
+        TextView siteView = activity.findViewById(R.id.site);
+        TextView musicaTipoView = activity.findViewById(R.id.tipoMusica);
+        TextView precoMedioView = activity.findViewById(R.id.precoMedio);
+        ProgressBar progressBar = activity.findViewById(R.id.progressIndeterminateBar);
+        LinearLayout detalhesBaladaContainer = activity.findViewById(R.id.detalhesBaladaContainer);
 
 
         Picasso.with(context).load(balada.getFoto()).into(fotoView);

@@ -1,4 +1,4 @@
-package br.com.teste.testerecyclerview.app.task;
+package br.com.teste.testerecyclerview.app.task.apagar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -125,7 +125,7 @@ public class ConsultarRankingBaladasTask extends AsyncTask<Void, Void, List<Bala
         }
 
         activity = (AppCompatActivity) context;
-        RecyclerView recyclerView = (RecyclerView) activity.findViewById(R.id.recycler);
+        RecyclerView recyclerView = activity.findViewById(R.id.recycler);
         RecyclerView.LayoutManager layout = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layout);
 

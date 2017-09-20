@@ -1,4 +1,4 @@
-package br.com.teste.testerecyclerview.app.task;
+package br.com.teste.testerecyclerview.app.task.apagar;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -92,11 +92,11 @@ public class PreencheMenuUsuarioTask extends AsyncTask<Void, Void, Usuario> {
 
         AppCompatActivity activity = (AppCompatActivity) context;
 
-        TextView nomeCompletoView = (TextView) activity.findViewById(R.id.nomeCompleto);
-        TextView emailView = (TextView) activity.findViewById(R.id.email);
-        ImageView imageView = (ImageView) activity.findViewById(R.id.profile_image);
-        ImageView imageBlurView = (ImageView) activity.findViewById(R.id.profile_imageBlur);
-        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) activity.findViewById(R.id.coordinatorLayout);
+        TextView nomeCompletoView = activity.findViewById(R.id.nomeCompleto);
+        TextView emailView = activity.findViewById(R.id.email);
+        ImageView imageView = activity.findViewById(R.id.profile_image);
+        ImageView imageBlurView = activity.findViewById(R.id.profile_imageBlur);
+        CoordinatorLayout coordinatorLayout = activity.findViewById(R.id.coordinatorLayout);
 
         nomeCompletoView.setText(usuario.getNomeCompleto());
         emailView.setText(usuario.getEmail());

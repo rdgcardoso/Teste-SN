@@ -1,30 +1,34 @@
 package br.com.teste.testerecyclerview.app.controller;
 
-import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.LogoutDTO;
-import br.com.teste.testerecyclerview.app.resources.Constantes;
-import br.com.teste.testerecyclerview.app.task.PreencheMenuUsuarioTask;
+import br.com.teste.testerecyclerview.app.dto.UsuarioDTO;
+import br.com.teste.testerecyclerview.app.resources.CodigoRetornoHTTP;
 import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
 import br.com.teste.testerecyclerview.app.ws.LogoutEndpoint;
+import br.com.teste.testerecyclerview.app.ws.UsuarioEndpoint;
+import br.com.teste.testerecyclerview.domain.model.Usuario;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,20 +39,30 @@ public class MainActivity extends StartNightActivity {
     private SharedPreferencesHelper sharedPreferencesHelper;
     private NavigationView navigationView;
     private LogoutDTO logoutDTO;
+    private TextView nomeCompletoView, emailView;
+    private ImageView imageView, imageBlurView;
+    private CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("@string/app_name");
-        setSupportActionBar(toolbar);
 
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
+        navigationView = findViewById(R.id.navigation_view);
+        View header = navigationView.getHeaderView(0);
 
-        new PreencheMenuUsuarioTask(this, sharedPreferencesHelper.recuperarToken()).execute();
+        nomeCompletoView = header.findViewById(R.id.nomeCompleto);
+        imageView = header.findViewById(R.id.profile_image);
+        imageBlurView = header.findViewById(R.id.profile_imageBlur);
+        emailView = header.findViewById(R.id.email);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+
+        preencheMenuUsuario();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("@string/app_name");
+        setSupportActionBar(toolbar);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
 
@@ -64,7 +78,7 @@ public class MainActivity extends StartNightActivity {
             }
         });
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        drawerLayout = findViewById(R.id.drawer);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
@@ -139,6 +153,55 @@ public class MainActivity extends StartNightActivity {
                 Toast.makeText(getApplicationContext(),"Opsss... Erro!",Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    private void preencheMenuUsuario() {
+
+        UsuarioEndpoint endpoint = RetrofitHelper.with(this).createUsuarioEndpoint();
+
+        Log.d("LRDG", "token agora: " + sharedPreferencesHelper.recuperarToken());
+        Call<UsuarioDTO> call = endpoint.consultarUsuario(sharedPreferencesHelper.recuperarToken());
+
+        call.enqueue(new Callback<UsuarioDTO>() {
+            @Override
+            public void onResponse(@NonNull Call<UsuarioDTO> call, @NonNull Response<UsuarioDTO> response) {
+
+                UsuarioDTO usuarioDTO = response.body();
+                if (response.isSuccessful()) {
+                    if (usuarioDTO != null) {
+                        Usuario usuario = new Usuario();
+
+                        usuario.setId(usuarioDTO.getId());
+                        usuario.setUsername(usuarioDTO.getUsername());
+                        usuario.setEmail(usuarioDTO.getEmail());
+                        usuario.setNome(usuarioDTO.getFirst_name());
+                        usuario.setSobrenome(usuarioDTO.getLast_name());
+                        usuario.setFoto(usuarioDTO.getFoto());
+                        usuario.setGeneroId(usuarioDTO.getSexo());
+                        usuario.setDataNascimentoFormatada(usuarioDTO.getDataNascimentoFormatada());
+
+                        nomeCompletoView.setText(usuario.getNomeCompleto());
+                        emailView.setText(usuario.getEmail());
+
+                        if (usuario.getFoto() != null) {
+                            Picasso.with(getApplicationContext()).load(usuario.getFoto()).into(imageView);
+                            Picasso.with(getApplicationContext()).load(usuario.getFoto()).into(imageBlurView);
+                        }
+
+                        Snackbar.make(coordinatorLayout, "Bem-vindo, " + usuario.getNome() + "!", Snackbar.LENGTH_LONG).show();
+                        Log.d("LRDG", "USUARIO NO MENU = " + usuario.toString());
+                    }
+                } else {
+                    Log.i("LRDG", "Erro preencheMenuUsuario " + response.code());
+                    CodigoRetornoHTTP.notAuthorized(getApplicationContext(), response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UsuarioDTO> call, @NonNull Throwable t) {
+                Log.d("LRDG", "Falha no preencheMenuUsuario!");
+            }
+        });
     }
 
     private void logout() {

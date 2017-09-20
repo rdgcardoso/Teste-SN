@@ -1,4 +1,4 @@
-package br.com.teste.testerecyclerview.app.task;
+package br.com.teste.testerecyclerview.app.task.apagar;
 
 import android.content.Context;
 import android.content.Intent;

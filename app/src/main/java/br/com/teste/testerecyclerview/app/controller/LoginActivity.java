@@ -3,6 +3,7 @@ package br.com.teste.testerecyclerview.app.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -15,12 +16,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
 import br.com.teste.testerecyclerview.R;
 import br.com.teste.testerecyclerview.app.dto.LoginDTO;
 import br.com.teste.testerecyclerview.app.resources.Constantes;
-import br.com.teste.testerecyclerview.app.task.LoginTask;
+import br.com.teste.testerecyclerview.app.util.RetrofitHelper;
 import br.com.teste.testerecyclerview.app.util.SharedPreferencesHelper;
+import br.com.teste.testerecyclerview.app.ws.LoginEndpoint;
 import br.com.teste.testerecyclerview.domain.model.Usuario;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class LoginActivity extends StartNightActivity {
@@ -30,7 +39,10 @@ public class LoginActivity extends StartNightActivity {
     private TextInputEditText usernameView, senhaView;
     private TextInputLayout usernameLayout, senhaLayout;
     private CoordinatorLayout coordinatorLayout;
-    Context context;
+    private Button bt_entrar;
+    private TextView bt_cadastrar;
+    private View progressBar;
+    private Context context;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,16 +50,19 @@ public class LoginActivity extends StartNightActivity {
         setContentView(R.layout.activity_login);
         context = this;
 
-        usernameView = (TextInputEditText) findViewById(R.id.username);
-        senhaView = (TextInputEditText) findViewById(R.id.senha);
-        usernameLayout = (TextInputLayout) findViewById(R.id.usernameLayout);
-        senhaLayout = (TextInputLayout) findViewById(R.id.senhaLayout);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        usernameView = findViewById(R.id.username);
+        senhaView = findViewById(R.id.senha);
+        usernameLayout = findViewById(R.id.usernameLayout);
+        senhaLayout = findViewById(R.id.senhaLayout);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        progressBar = findViewById(R.id.progressIndeterminateBar);
+        bt_entrar = findViewById(R.id.bt_entrar);
+        bt_cadastrar = findViewById(R.id.cadastrar);
 
         senhaView.setOnEditorActionListener(editorAction);
 
-        Button bt_entrar = (Button) findViewById(R.id.bt_entrar);
-        TextView bt_cadastrar = (TextView) findViewById(R.id.cadastrar);
+        Button bt_entrar = findViewById(R.id.bt_entrar);
+        TextView bt_cadastrar = findViewById(R.id.cadastrar);
 
         bt_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +90,8 @@ public class LoginActivity extends StartNightActivity {
                 }
 
                 Log.d("LRDG", "usuario: " + usuario.toString());
-                new LoginTask(usuario, context).execute();
+                logar(usuario);
+                //new LoginTask(usuario, context).execute();
 
             }
         });
@@ -140,6 +156,71 @@ public class LoginActivity extends StartNightActivity {
         }
 
         return isOk;
+    }
+
+    private void logar(Usuario usuario) {
+
+        progressBar.setVisibility(View.VISIBLE);
+        bt_entrar.setVisibility(View.GONE);
+        bt_cadastrar.setVisibility(View.GONE);
+
+        LoginEndpoint endpoint = RetrofitHelper.with(this).createLoginEndpoint();
+
+        Call<LoginDTO> call = endpoint.logarUsuario(
+                usuario.getUsername(),
+                usuario.getSenha()
+        );
+
+        call.enqueue(new Callback<LoginDTO>() {
+            @Override
+            public void onResponse(@NonNull Call<LoginDTO> call, @NonNull Response<LoginDTO> response) {
+
+                loginDTO = response.body();
+                if (response.isSuccessful()) {
+                    if (loginDTO != null) {
+                        sharedPreferences = new SharedPreferencesHelper(getApplicationContext());
+                        sharedPreferences.setToken(loginDTO.getKey());
+                        Log.d("LRDG", "Autenticado! Token =" + loginDTO.getKey());
+
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                } else {
+                    try {
+                        Gson gson = new Gson();
+                        loginDTO = gson.fromJson(response.errorBody().string(), LoginDTO.class);
+
+                        Log.d("LRDG", "loginDTO=" + loginDTO.toString());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("LRDG", "Erro! Sem sucesso no login! Erro: " + response.code());
+                    Log.d("LRDG", "loginDTO response: " + loginDTO);
+                    Log.d("LRDG", "response toString: " + response.toString());
+                    Log.d("LRDG", "response message: " + response.message());
+
+                    usernameLayout.setError(" ");
+                    senhaLayout.setError(" ");
+
+                    msgErroSnackBar(coordinatorLayout, loginDTO.getNon_field_errors()[0]);
+                    Log.d("LRDG", "Erro no formulário: " + loginDTO.getNon_field_errors()[0]);
+
+                    progressBar.setVisibility(View.GONE);
+                    bt_entrar.setVisibility(View.VISIBLE);
+                    bt_cadastrar.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<LoginDTO> call, @NonNull Throwable t) {
+                Log.d("LRDG", "Falha no login!");
+                progressBar.setVisibility(View.GONE);
+                bt_entrar.setVisibility(View.VISIBLE);
+                bt_cadastrar.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 }
