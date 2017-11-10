@@ -1,6 +1,7 @@
 package br.com.teste.testerecyclerview.app.controller;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -32,12 +33,6 @@ public class BaladaDetalhesActivity extends StartNightActivity {
 
     private BaladaDetalhesFragment detalhesBaladaFragment;
 
-    private int[] tabIcons = {
-            R.drawable.ic_description_white_18dp,
-            R.drawable.ic_event_white_18dp
-    };
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +47,6 @@ public class BaladaDetalhesActivity extends StartNightActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-        setupTabIcons();
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
@@ -100,41 +93,13 @@ public class BaladaDetalhesActivity extends StartNightActivity {
         return true;
     }
 
-    private void setupTabIcons() {
-
-        LinearLayout tabUm = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.tab_balada_detalhes, (ViewGroup) null);
-        TextView tabUmText = (TextView) tabUm.findViewById(R.id.tabText);
-        ImageView tabUmIcon = (ImageView) tabUm.findViewById(R.id.tabIcon);
-        tabUmText.setText("Informações");
-        tabUmIcon.setImageResource(tabIcons[0]);
-        tabLayout.getTabAt(0).setCustomView(tabUm);
-
-        LinearLayout tabDois = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.tab_balada_detalhes, (ViewGroup) null);
-        TextView tabDoisText = (TextView) tabDois.findViewById(R.id.tabText);
-        ImageView tabDoisIcon = (ImageView) tabDois.findViewById(R.id.tabIcon);
-        tabDoisText.setText("Eventos");
-        tabDoisIcon.setImageResource(tabIcons[1]);
-        tabLayout.getTabAt(1).setCustomView(tabDois);
-/*
-        tabUm.setText("Informações");
-        tabUm.setTextColor(Color.WHITE);
-        tabUm.setCompoundDrawablesWithIntrinsicBounds(tabIcons[0], 0, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabUm);
-
-        TextView tabDois = (TextView) LayoutInflater.from(this).inflate(R.layout.detalhes_balada_tab, (ViewGroup) null);
-        tabDois.setText("Eventos");
-        tabDois.setTextColor(Color.WHITE);
-        tabDois.setCompoundDrawablesWithIntrinsicBounds(tabIcons[1], 0, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabDois);*/
-
-    }
-
     private void setupViewPager(ViewPager viewPager) {
-        detalhesBaladaFragment = new BaladaDetalhesFragment();
         BaladaEventosFragment eventosBaladaFragment = new BaladaEventosFragment();
+        detalhesBaladaFragment = new BaladaDetalhesFragment();
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(detalhesBaladaFragment, "Detalhes");
-        adapter.addFrag(eventosBaladaFragment, "Eventos");
+        adapter.addFrag(detalhesBaladaFragment, "DETALHES");
+        adapter.addFrag(eventosBaladaFragment, "EVENTOS");
         viewPager.setAdapter(adapter);
     }
 
@@ -164,7 +129,6 @@ public class BaladaDetalhesActivity extends StartNightActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            //return null;
             return mFragmentTitleList.get(position);
         }
     }

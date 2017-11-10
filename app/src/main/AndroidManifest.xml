@@ -13,24 +13,28 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".app.controller.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".app.controller.UsuarioCadastrarActivity"></activity>
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".app.controller.UsuarioCadastrarActivity" />
         <activity
             android:name=".app.controller.SplashScreenActivity"
             android:noHistory="true"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.controller.LoginActivity" />
+        <activity
+            android:name=".app.controller.LoginActivity"
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".app.controller.BaladaDetalhesActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".app.controller.UsuarioEditarActivity"></activity>
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".app.controller.UsuarioEditarActivity"
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>

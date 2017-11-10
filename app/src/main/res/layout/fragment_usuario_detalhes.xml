@@ -70,16 +70,6 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <!--
-        <LinearLayout
-            android:id="@+id/tab"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/profile_imageBlur"
-            android:background="@color/colorPrimary"
-            android:orientation="vertical"/>
-        -->
-
         <LinearLayout
             android:id="@+id/detalhesUsuarioContainer"
             android:layout_width="match_parent"
